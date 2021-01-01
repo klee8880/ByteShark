@@ -4,7 +4,7 @@ package model.CRBDataModel;
  * @author klee8
  *
  */
-public class CRBWheelSetData extends CRBLine {
+public class CRBWheelSetData extends CRBData {
 	
 	protected String WheelNarrative;			//167-194
 	protected String appliedWheelDate;			//195-198
