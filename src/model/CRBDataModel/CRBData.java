@@ -1,5 +1,6 @@
 package model.CRBDataModel;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 
 /**A line from a billing repair card containing billing data and coding
@@ -35,8 +36,8 @@ public abstract class CRBData extends CRBLine{
 	protected int responsabilityCode;			//138
 	protected String defectParty;				//139-142
 	protected String defectDate;				//143-148
-	protected int laborCharge;					//149-155
-	protected int materialCharge;				//156-163
+	protected BigDecimal laborCharge;			//149-155
+	protected BigDecimal materialCharge;		//156-163
 	protected char materialSign;				//164
 	protected char machinePriceable;			//165
 	protected char wrongRepairIndicator;		//166
@@ -58,6 +59,13 @@ public abstract class CRBData extends CRBLine{
 	protected int originalAccountDate;			//323-326
 	protected String AARComponentID;			//327-340
 	protected String freeUseArea;				//401-500
+	
+	
+	
+	public BigDecimal totalCharge() {
+		//TODO: Stub
+		return null;
+	}
 }
 
 
