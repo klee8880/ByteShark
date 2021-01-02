@@ -1,6 +1,6 @@
 package model.CRBDataModel;
 
-/**AAR Compliant Dataset line for data involveing wheel replacements.
+/**Record Format 1: Raillinc compliant dataset line for data involving wheel replacements.
  * @author klee8
  *
  */
