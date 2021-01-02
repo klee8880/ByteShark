@@ -15,7 +15,7 @@ public class CRBGeneralData extends CRBData {
 	
 	public CRBGeneralData(String input) {
 		super(input);
-		
+		this.narrative = input.substring(166,216).trim();
 	}
 
 	//Getters & Setters

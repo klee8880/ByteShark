@@ -58,7 +58,7 @@ public abstract class CRBData extends CRBLine{
 	//Constructor
 
 	public CRBData(String input) {
-		super();
+		super(input);
 		
 		BigDecimal divider = new BigDecimal("100");
 		
@@ -82,7 +82,7 @@ public abstract class CRBData extends CRBLine{
 		this.conditionCode = Integer.parseInt(input.substring(116, 117));
 		this.appliedJobCode = input.substring(119, 123);
 		this.appliedQualifier = input.substring(123, 125);
-		this.whyMadeCode = input.substring(125, 127);
+		this.whyMadeCode = input.substring(126, 128);
 		this.removedJobCode = input.substring(130, 134);
 		this.removedQualifier = input.substring(134, 136);
 		this.responsabilityCode = Short.parseShort(input.substring(137,138));
@@ -96,7 +96,6 @@ public abstract class CRBData extends CRBLine{
 				Integer.parseInt(input.substring(146,148)));
 		} catch (NumberFormatException ex) {
 			this.defectDate = null;
-			//System.out.println("Defect Date not detected");
 		}
 		
 		this.laborCharge = new BigDecimal(input.substring(148,155)).divide(divider);
@@ -122,7 +121,6 @@ public abstract class CRBData extends CRBLine{
 				1);
 		} catch(NumberFormatException ex) {
 			this.originalAccountDate = null;
-			//System.out.println("Original Account Date not detected");
 		}
 		AARComponentID = input.substring(326,340);
 		this.freeUseArea = "";

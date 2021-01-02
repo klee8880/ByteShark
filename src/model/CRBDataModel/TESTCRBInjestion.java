@@ -42,13 +42,11 @@ public class TESTCRBInjestion {
 		
 		CRBLine data = CRBDataIngestor.readDataLine(TESTDATALINE);
 		
-		if (data.recordFormat != 1) {
-			Assertions.fail("Returned incorrect record type");
-		}
+		Assertions.assertEquals(1, data.recordFormat);
 		
 		CRBData line = (CRBData) data;
 		
-		Assertions.assertEquals("C", line.location);
+		Assertions.assertEquals("C ", line.location);
 		Assertions.assertEquals(1, line.quantity);
 		Assertions.assertEquals(0, line.conditionCode);
 		Assertions.assertEquals("8008", line.appliedJobCode);
