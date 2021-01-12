@@ -16,7 +16,7 @@ public abstract class CRBData extends CRBLine{
 	protected int carNumber; 					//52-57
 	protected char carType;						//58
 	protected char loadIndicator;				//59
-	protected LocalDate repairDate;					//60-65
+	protected LocalDate repairDate;				//60-65
 	protected int SPLC;							//66-71
 	protected String repairParty;				//72-75
 	protected String repairPartyInvoiceNum;		//76-91
@@ -44,7 +44,7 @@ public abstract class CRBData extends CRBLine{
 	protected BigDecimal laborRate;				//217-221
 	protected int expandedSPLC;					//222-230
 
-	protected LocalDate arrivalDate;					//283-288
+	protected LocalDate arrivalDate;			//283-288
 	protected int lineNumber;					//289-293
 	protected int railLinkInboundDate;			//294-299
 	protected int railLinkOutboundDate;			//300-305
