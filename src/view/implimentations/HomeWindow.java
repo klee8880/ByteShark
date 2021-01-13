@@ -23,7 +23,7 @@ public class HomeWindow extends JFrame implements IHomeWindow{
     private final String defaultTitle = "Byte Shark";
     private final Insets defaultButtonDimensions = new Insets(5, 8, 5, 8);
 
-	public HomeWindow() {
+	public HomeWindow(JPanel BRCTable) {
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle(defaultTitle);
@@ -32,18 +32,7 @@ public class HomeWindow extends JFrame implements IHomeWindow{
         
         //TODO: Control Bar
         
-        //Table Element
-        JPanel window = createWindow();
-        JTable table = new BRCTable();
-        //Decorate with Scroll Bar
-        JScrollPane scrollPane = new JScrollPane(table);
-        table.setPreferredScrollableViewportSize(new Dimension(500, 300));
-        table.setFillsViewportHeight(true);
-        
-        window.add(scrollPane);
-        window.setOpaque(true);
-        
-        this.setContentPane(window);
+        this.setContentPane(BRCTable);
         
         this.pack();
         this.setVisible(true);

@@ -2,8 +2,10 @@ package main;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import view.implimentations.HomeWindow;
-import view.interfaces.IHomeWindow;
+
+import javax.swing.JPanel;
+import view.implimentations.*;
+import view.interfaces.*;
 
 public class Main {
 
@@ -12,7 +14,8 @@ public class Main {
 	public static void main (String[] args) throws Exception {
 
 		//assemble the UI
-		IHomeWindow homeWindow = new HomeWindow();
+		JPanel brcTable = new BRCPanel();
+		IHomeWindow homeWindow = new HomeWindow(brcTable);
 		
 		//TODO: Activate Control Structure
 		
