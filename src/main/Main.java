@@ -1,18 +1,18 @@
 package main;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-
+import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.event.TableModelListener;
 
+import controller.CommandManager;
 import controller.TableListener;
+import model.CRBDataModel.CRBLine;
 import view.implimentations.*;
 import view.interfaces.*;
 
 public class Main {
 
-	private static String TESTFILE= "/500ByteReader/InvoiceTestData.txt"; 
+	private static String TESTFILE= "/Eclipse/ByteShark/InvoiceTestData.txt"; 
 	
 	public static void main (String[] args) throws Exception {
 
@@ -23,8 +23,12 @@ public class Main {
 		JPanel brcTable = new BRCPanel(tableListener);
 		IHomeWindow homeWindow = new HomeWindow(brcTable);
 		
-		//TODO: Activate Control Structure
+		//TODO: TEST FILE INPUT
+		ArrayList<CRBLine> brc = CommandManager.importNewBRC(TESTFILE);
 		
+		for (CRBLine line: brc) {
+			
+		}
 	}
 	
 }

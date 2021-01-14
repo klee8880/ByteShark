@@ -1,11 +1,13 @@
 package model.CRBDataModel;
 
+import java.io.IOException;
+
 public class CRBDataIngestor {
 
-	public static CRBLine readDataLine (String input) {
+	public static CRBLine readDataLine (String input) throws IOException {
 		
 		//Check argument length for incorrect data file.
-		if (input.length() != 500) throw new IllegalArgumentException("Incorrect format: Not 500 characters per line");
+		if (input.length() != 500) throw new IOException("Incorrect format: Not 500 characters per line");
 		
 		//Switch based on the detected record type.
 		int recordType = Integer.parseInt(input.substring(0, 1));
@@ -27,7 +29,5 @@ public class CRBDataIngestor {
 		default:
 			throw new IllegalArgumentException("Incorrect format: Unexpected record format");
 		}
-		
 	}
-	
 }

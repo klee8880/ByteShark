@@ -33,7 +33,7 @@ public class BRCPanel extends JPanel implements IBRCPanel{
 	};
 	private static Object[][] DEFAULTDATA = {
 			{new Integer(1),"C",new Integer(0),"09",new Integer(0),"NEW DESCRIPTION",new Integer(0),new Integer(0),new Integer(0),new BigDecimal("50.00"),new BigDecimal("50.00"),new BigDecimal("100.00")}
-		};
+	};
 	private JTable table;
 	private DefaultTableModel model;
 

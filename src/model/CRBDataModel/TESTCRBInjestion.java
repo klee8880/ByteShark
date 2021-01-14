@@ -1,5 +1,6 @@
 package model.CRBDataModel;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import org.junit.jupiter.api.Assertions;
@@ -19,14 +20,20 @@ public class TESTCRBInjestion {
 	
 	@Test 
 	public void basicLineData() {
-		CRBLine data = CRBDataIngestor.readDataLine(TESTDATALINE);
-		Assertions.assertEquals(1, data.recordFormat);
-		
-		data = CRBDataIngestor.readDataLine(TESTSUMMARYLINE8);
-		Assertions.assertEquals(8, data.recordFormat);
-		
-		data = CRBDataIngestor.readDataLine(TESTCONTACTLINE);
-		Assertions.assertEquals(6, data.recordFormat);
+		CRBLine data;
+		try {
+			data = CRBDataIngestor.readDataLine(TESTDATALINE);
+			Assertions.assertEquals(1, data.recordFormat);
+			
+			data = CRBDataIngestor.readDataLine(TESTSUMMARYLINE8);
+			Assertions.assertEquals(8, data.recordFormat);
+			
+			data = CRBDataIngestor.readDataLine(TESTCONTACTLINE);
+			Assertions.assertEquals(6, data.recordFormat);
+		} catch (IOException e) {
+			Assertions.fail("Exception Hit");
+			return;
+		}
 		
 		Assertions.assertEquals("PROX", data.billingParty);
 		Assertions.assertEquals("UTLX", data.billedParty);
@@ -40,7 +47,13 @@ public class TESTCRBInjestion {
 	@Test
 	public void dataLineRead() {
 		
-		CRBLine data = CRBDataIngestor.readDataLine(TESTDATALINE);
+		CRBLine data;
+		try {
+			data = CRBDataIngestor.readDataLine(TESTDATALINE);
+		} catch (IOException e) {
+			Assertions.fail("Exception Hit");
+			return;
+		}
 		
 		Assertions.assertEquals(1, data.recordFormat);
 		
@@ -96,7 +109,7 @@ public class TESTCRBInjestion {
 			}
 			CRBDataIngestor.readDataLine(sb.toString());
 			
-		} catch (IllegalArgumentException ex) {
+		} catch (IOException ex) {
 			return;
 		}
 		
