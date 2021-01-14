@@ -20,15 +20,14 @@ public class Main {
 		TableModelListener tableListener = new TableListener();
 		
 		//assemble the UI
-		JPanel brcTable = new BRCPanel(tableListener);
+		BRCPanel brcTable = new BRCPanel(tableListener);
 		IHomeWindow homeWindow = new HomeWindow(brcTable);
 		
 		//TODO: TEST FILE INPUT
 		ArrayList<CRBLine> brc = CommandManager.importNewBRC(TESTFILE);
 		
-		for (CRBLine line: brc) {
-			
-		}
+		//TODO: TEST ADD DATA TO MODEL
+		CommandManager.pushDataToTable(brc, brcTable);
 	}
 	
 }

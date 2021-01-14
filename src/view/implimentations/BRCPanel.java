@@ -62,6 +62,13 @@ public class BRCPanel extends JPanel implements IBRCPanel{
 	public void refreshTable() {
 		
 	}
+	
+	/**
+	 * @param newRow
+	 */
+	public void addRow(Object[] newRow) {
+		model.addRow(newRow);
+	}
 
 	
 }
