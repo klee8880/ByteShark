@@ -25,7 +25,10 @@ public class TableListener implements TableModelListener{
 	        String columnName = model.getColumnName(col);
 	        Object data = model.getValueAt(row, col);
 	        
+	        //TODO: DEBUG
 	        System.out.println("UPDATE \nColumn: " + columnName + "\nValue: " + data);
+	        
+	        
 	        break;
 	        
 		case TableModelEvent.DELETE:
