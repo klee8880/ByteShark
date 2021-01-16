@@ -23,6 +23,8 @@ public class Main {
 		BRCPanel brcTable = new BRCPanel(tableListener);
 		IHomeWindow homeWindow = new HomeWindow(brcTable);
 		
+		System.out.println(brcTable.getTable().getColumnClass(1));
+		
 		//TODO: TEST FILE INPUT
 		ArrayList<CRBLine> brc = CommandManager.importNewBRC(TESTFILE);
 		

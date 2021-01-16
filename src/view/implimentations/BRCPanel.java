@@ -13,6 +13,21 @@ import javax.swing.table.DefaultTableModel;
 import view.interfaces.IBRCPanel;
 
 /**Table Used to display basic BRC data
+ * 
+ * Table Scheme:
+ * 		Row: Integer
+ * 		Location: String
+ * 		Qty: Integer
+ * 		Con Code: Integer
+ *		App Jobe Code: Integer
+ *		Description: String
+ *		Rmv Job Code: Integer
+ *		Why Made: Integer
+ *		Resp Code: Integer
+ *		Labor: BigDecimal
+ *		Material: BigDecimal
+ *		Total: BigDecimal
+ * 
  * @author Kevin Lee
  */
 public class BRCPanel extends JPanel implements IBRCPanel{
@@ -31,9 +46,35 @@ public class BRCPanel extends JPanel implements IBRCPanel{
 			"Materials",
 			"TotalCharge"
 	};
-	private static Object[][] DEFAULTDATA = {
-			{new Integer(1),"C",new Integer(0),"09",new Integer(0),"NEW DESCRIPTION",new Integer(0),new Integer(0),new Integer(0),new BigDecimal("50.00"),new BigDecimal("50.00"),new BigDecimal("100.00")}
+	
+	private static final Class[] dataType = {
+			Integer.class,
+			String.class,
+			Integer.class,
+			Integer.class,
+			Integer.class,
+			String.class,
+			Integer.class,
+			Integer.class,
+			Integer.class,
+			BigDecimal.class,
+			BigDecimal.class,
+			BigDecimal.class};
+	
+	private static Object[][] DEFAULTDATA = {};
+	
+	class BRCModel extends DefaultTableModel{
+		
+		BRCModel(Object[][] data, String [] scheme ) { 
+			super(data,scheme); 
+		}
+		
+		@Override
+		public Class<?> getColumnClass(int index) {
+			return dataType[index];
+		}
 	};
+	
 	private JTable table;
 	private DefaultTableModel model;
 
@@ -41,7 +82,7 @@ public class BRCPanel extends JPanel implements IBRCPanel{
 	public BRCPanel(TableModelListener listener) {
 		
 		//Table Element
-		this.model = new DefaultTableModel(DEFAULTDATA, SCHEME);
+		this.model = new BRCModel(DEFAULTDATA, SCHEME);
 		this.model.addTableModelListener(listener);
 		
         JTable table = new JTable(model);
@@ -68,6 +109,23 @@ public class BRCPanel extends JPanel implements IBRCPanel{
 	 */
 	public void addRow(Object[] newRow) {
 		model.addRow(newRow);
+	}
+
+	//Getters & Setters
+	public JTable getTable() {
+		return table;
+	}
+
+	public void setTable(JTable table) {
+		this.table = table;
+	}
+
+	public DefaultTableModel getModel() {
+		return model;
+	}
+
+	public void setModel(DefaultTableModel model) {
+		this.model = model;
 	}
 
 	
