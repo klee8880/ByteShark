@@ -12,7 +12,8 @@ import javax.swing.table.DefaultTableModel;
 
 import view.interfaces.IBRCPanel;
 
-/**Table Used to display basic BRC data
+/**Table Used to display & manipulate basic BRC data for one repair event.
+ * Installed Table Listener should be triggered whenever the user changes an element of the table.
  * 
  * Table Scheme:
  * 		Row: Integer
@@ -96,18 +97,22 @@ public class BRCPanel extends JPanel implements IBRCPanel{
         this.add(scrollPane);
         this.setOpaque(true);
 	}
-	
-	/**Update the entire table with new data.
-	 * 
-	 */
-	public void refreshTable() {
-		
-	}
-	
+
 	/**
-	 * @param newRow
+	 * @param newRow - Object[] following the table's schema
 	 */
 	public void addRow(Object[] newRow) {
+		
+		//Validation
+		if (newRow == null) throw new IllegalArgumentException("Null passed as argument");
+		if (newRow.length != dataType.length) throw new IllegalArgumentException("Incorrect number of arguments in array");
+		
+		for (int i = 0; i < newRow.length; i++) {
+			if(newRow[i].getClass() != dataType[i]) {
+				throw new IllegalArgumentException("Incorrect Datatype at column " + i + "{Expected " + dataType[i] + " received " + newRow[i].getClass() +"}");
+			}
+		}
+		
 		model.addRow(newRow);
 	}
 

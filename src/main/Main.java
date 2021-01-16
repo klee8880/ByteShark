@@ -12,7 +12,7 @@ import view.interfaces.*;
 
 public class Main {
 
-	private static String TESTFILE= "/Eclipse/ByteShark/InvoiceTestData.txt"; 
+	private static String TESTFILE= "./InvoiceTestData.txt"; 
 	
 	public static void main (String[] args) throws Exception {
 
@@ -22,8 +22,6 @@ public class Main {
 		//assemble the UI
 		BRCPanel brcTable = new BRCPanel(tableListener);
 		IHomeWindow homeWindow = new HomeWindow(brcTable);
-		
-		System.out.println(brcTable.getTable().getColumnClass(1));
 		
 		//TODO: TEST FILE INPUT
 		ArrayList<CRBLine> brc = CommandManager.importNewBRC(TESTFILE);

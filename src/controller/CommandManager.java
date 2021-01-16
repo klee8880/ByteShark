@@ -58,10 +58,10 @@ public class CommandManager {
 			
 			//Format for data table
 			Object[] tableLine = {
-					new Integer(lineCount),//
+					lineCount,//
 					dataLine.getLocation(),//
-					new Integer(dataLine.getQuantity()),//
-					new Integer(dataLine.getConditionCode()),//
+					dataLine.getQuantity(),//
+					dataLine.getConditionCode(),//
 					new Integer(dataLine.getAppliedJobCode()),//
 					dataLine.getNarrative(),//
 					new Integer(dataLine.getRemovedJobCode()),//
