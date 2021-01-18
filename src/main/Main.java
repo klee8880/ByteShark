@@ -1,14 +1,14 @@
 package main;
 
 import java.util.ArrayList;
-import javax.swing.JPanel;
 import javax.swing.event.TableModelListener;
 
 import controller.CommandManager;
 import controller.TableListener;
 import model.CRBDataModel.CRBLine;
-import view.implimentations.*;
-import view.interfaces.*;
+import view.HomeWindow;
+import view.BRCPanel.BRCPanel;
+import view.BRCPanel.IHomeWindow;
 
 public class Main {
 

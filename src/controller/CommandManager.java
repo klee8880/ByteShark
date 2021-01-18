@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import model.CRBDataModel.CRBDataIngestor;
 import model.CRBDataModel.CRBGeneralData;
 import model.CRBDataModel.CRBLine;
-import view.implimentations.BRCPanel;
+import view.BRCPanel.BRCPanel;
 
 public class CommandManager {
 

@@ -1,4 +1,4 @@
-package view.interfaces;
+package view.BRCPanel;
 
 public interface IHomeWindow {
 

@@ -1,4 +1,4 @@
-package view.implimentations;
+package view.BRCPanel;
 
 import java.math.BigDecimal;
 
