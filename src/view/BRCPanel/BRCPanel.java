@@ -96,6 +96,27 @@ public class BRCPanel extends JPanel implements IBRCPanel{
         this.setOpaque(true);
 	}
 
+	/**Edit a row of data
+	 * @param newRow Object[] following the table's schema
+	 */
+	public void editRow(Object[] newRow) {
+		
+		//Validation
+		if (newRow == null) throw new IllegalArgumentException("Null passed as argument");
+		if (newRow.length != dataType.length) throw new IllegalArgumentException("Incorrect number of arguments in array");
+		
+		//Find correct row to edit
+		for (int i = 0; i < table.getRowCount(); i++) {
+			
+			if (table.getValueAt(i, 0) == newRow[0]) {
+				//Edit data row
+				for (int j = 0; j < SCHEME.length; j++) {
+					table.setValueAt(newRow[j], i, j);
+				}
+			}
+		}
+	}
+	
 	/**
 	 * @param newRow - Object[] following the table's schema
 	 */
@@ -115,22 +136,8 @@ public class BRCPanel extends JPanel implements IBRCPanel{
 	}
 
 	//Getters & Setters
-	public JTable getTable() {
-		return table;
-	}
-
-	public void setTable(JTable table) {
-		this.table = table;
-	}
-
-	public DefaultTableModel getModel() {
-		return model;
-	}
-
-	public void setModel(DefaultTableModel model) {
-		this.model = model;
-	}
-
+	public JTable getTable() { return table; }
+	public DefaultTableModel getModel() { return model; }
 	
 }
 

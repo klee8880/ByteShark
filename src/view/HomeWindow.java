@@ -40,6 +40,8 @@ public class HomeWindow extends JFrame implements IHomeWindow{
         
         controlPane.add(BRCTable, BorderLayout.CENTER);
         
+        setContentPane(controlPane);
+        
         this.pack();
         this.setVisible(true);
         
@@ -52,7 +54,6 @@ public class HomeWindow extends JFrame implements IHomeWindow{
 		backgroundPanel.setBorder(new EmptyBorder(0, 0, 0, 0));
 		backgroundPanel.setLayout(new BorderLayout(0, 0));
 		backgroundPanel.setBackground(Color.WHITE);
-        setContentPane(backgroundPanel);
         
         //Button Panel
         JPanel buttons = new JPanel();
