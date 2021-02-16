@@ -3,12 +3,9 @@ package main;
 import java.util.ArrayList;
 import javax.swing.event.TableModelListener;
 
-import controller.CommandManager;
-import controller.TableListener;
-import model.CRBDataModel.CRBLine;
-import view.HomeWindow;
-import view.BRCPanel.BRCPanel;
-import view.BRCPanel.IHomeWindow;
+import controller.*;
+import model.CRBDataModel.*;
+import view.BRCPanel.*;
 
 public class Main {
 
@@ -16,15 +13,16 @@ public class Main {
 	
 	public static void main (String[] args) throws Exception {
 
+		//TODO: TEST FILE INPUT
+		ArrayList<CRBLine> brc = CommandManager.importNewBRC(TESTFILE);
+		ArrayList<CRBGeneralData> generalLines = CommandManager.extractDataLines(brc);
+		
 		//Start Event Handlers
-		TableModelListener tableListener = new TableListener();
+		TableModelListener tableListener = new TableListener(generalLines);
 		
 		//assemble the UI
 		BRCPanel brcTable = new BRCPanel(tableListener);
 		IHomeWindow homeWindow = new HomeWindow(brcTable);
-		
-		//TODO: TEST FILE INPUT
-		ArrayList<CRBLine> brc = CommandManager.importNewBRC(TESTFILE);
 		
 		//TODO: TEST ADD DATA TO MODEL
 		CommandManager.pushDataToTable(brc, brcTable);

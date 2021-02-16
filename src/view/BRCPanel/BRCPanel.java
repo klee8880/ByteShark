@@ -52,12 +52,12 @@ public class BRCPanel extends JPanel implements IBRCPanel{
 			Integer.class,
 			String.class,
 			Integer.class,
-			Integer.class,
+			Short.class,
 			Integer.class,
 			String.class,
 			Integer.class,
 			Integer.class,
-			Integer.class,
+			Short.class,
 			BigDecimal.class,
 			BigDecimal.class,
 			BigDecimal.class};
@@ -133,6 +133,14 @@ public class BRCPanel extends JPanel implements IBRCPanel{
 		this.model = model;
 	}
 	
+	public static String[] getSCHEME() {
+		return SCHEME;
+	}
+
+	public static Class[] getDatatype() {
+		return dataType;
+	}
+
 	public File getFilePath() {
 		JFileChooser chooser = new JFileChooser();
 		

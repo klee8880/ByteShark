@@ -24,7 +24,7 @@ public abstract class CRBData extends CRBLine{
 	protected String facilityType;				//107-108
 	protected String location;					//109-110
 	protected int quantity;						//113-116
-	protected int conditionCode;				//117
+	protected short conditionCode;				//117
 	protected String appliedJobCode;			//120-123
 	protected String appliedQualifier;			//124-125
 	protected String whyMadeCode;				//127-128
@@ -79,7 +79,7 @@ public abstract class CRBData extends CRBLine{
 		this.facilityType = input.substring(106, 108);
 		this.location = input.substring(108, 110);
 		this.quantity = Integer.parseInt(input.substring(112, 116));
-		this.conditionCode = Integer.parseInt(input.substring(116, 117));
+		this.conditionCode = Short.parseShort(input.substring(116, 117));
 		this.appliedJobCode = input.substring(119, 123);
 		this.appliedQualifier = input.substring(123, 125);
 		this.whyMadeCode = input.substring(126, 128);
@@ -243,11 +243,11 @@ public abstract class CRBData extends CRBLine{
 		this.quantity = quantity;
 	}
 
-	public int getConditionCode() {
+	public short getConditionCode() {
 		return conditionCode;
 	}
 
-	public void setConditionCode(int conditionCode) {
+	public void setConditionCode(short conditionCode) {
 		this.conditionCode = conditionCode;
 	}
 

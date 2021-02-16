@@ -1,4 +1,4 @@
-package view;
+package view.BRCPanel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -13,9 +13,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-
-import view.BRCPanel.BRCEvent;
-import view.BRCPanel.IHomeWindow;
 
 /** Home window that shows after startup is complete Begins with an empty table
  * @author klee8

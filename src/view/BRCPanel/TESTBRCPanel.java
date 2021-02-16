@@ -18,7 +18,7 @@ public class TESTBRCPanel {
 	public static void initialize() {
 		
 		//Start Event Handlers
-		TableModelListener tableListener = new TableListener();
+		TableModelListener tableListener = new TableListener(null);
 		
 		//assemble the UI
 		brcTable = new BRCPanel(tableListener);

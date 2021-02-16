@@ -83,7 +83,7 @@ public class CommandManager {
 	 * @param dataSet
 	 * @return
 	 */
-	private static ArrayList<CRBGeneralData> extractDataLines(ArrayList<CRBLine> dataSet) {
+	public static ArrayList<CRBGeneralData> extractDataLines(ArrayList<CRBLine> dataSet) {
 		
 		ArrayList<CRBGeneralData> repairLines = new ArrayList<CRBGeneralData>();
 		
