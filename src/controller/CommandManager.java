@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 
 import model.CRBDataModel.CRBDataIngestor;
@@ -62,22 +63,19 @@ public class CommandManager {
 					dataLine.getLocation(),//
 					dataLine.getQuantity(),//
 					dataLine.getConditionCode(),//
-					new Integer(dataLine.getAppliedJobCode()),//
+					Integer.parseInt(dataLine.getAppliedJobCode()),//
 					dataLine.getNarrative(),//
-					new Integer(dataLine.getRemovedJobCode()),//
-					new Integer(dataLine.getWhyMadeCode()),//
-					new Integer(dataLine.getResponsabilityCode()),//
+					Integer.parseInt(dataLine.getRemovedJobCode()),//
+					Integer.parseInt(dataLine.getWhyMadeCode()),//
+					dataLine.getResponsabilityCode(),//
 					dataLine.getLaborCharge(),
 					dataLine.getMaterialCharge(),
 					dataLine.getLaborCharge().add(dataLine.getMaterialCharge())
 					};
-			
 			//Push lines to table
 			brcTable.addRow(tableLine);
 			
 		}
-		
-		
 		
 	}
 	

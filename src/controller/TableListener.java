@@ -28,7 +28,6 @@ public class TableListener implements TableModelListener{
 	        //TODO: DEBUG
 	        System.out.println("UPDATE \nColumn: " + columnName + "\nValue: " + data);
 	        
-	        
 	        break;
 	        
 		case TableModelEvent.DELETE:

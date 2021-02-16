@@ -1,8 +1,10 @@
 package view.BRCPanel;
 
 import java.awt.Dimension;
+import java.io.File;
 import java.math.BigDecimal;
 
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -130,8 +132,25 @@ public class BRCPanel extends JPanel implements IBRCPanel{
 	public void setModel(DefaultTableModel model) {
 		this.model = model;
 	}
-
 	
+	public File getFilePath() {
+		JFileChooser chooser = new JFileChooser();
+		
+		int result = chooser.showOpenDialog(this);
+		
+		switch(result) {
+		
+		case JFileChooser.APPROVE_OPTION:
+			return chooser.getSelectedFile();
+			
+		case JFileChooser.CANCEL_OPTION:
+			return null;
+
+		default:
+			throw new IllegalArgumentException();
+		}
+
+	}
 }
 
 
