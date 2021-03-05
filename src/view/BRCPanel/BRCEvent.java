@@ -8,5 +8,6 @@ public enum BRCEvent {
 	Import,
 	Export,
 	Undo,
-	Redo
+	Redo,
+	Delete
 }

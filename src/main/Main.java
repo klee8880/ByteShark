@@ -18,7 +18,7 @@ public class Main {
 		ArrayList<CRBGeneralData> generalLines = CommandManager.extractDataLines(brc);
 		
 		//Start Event Handlers
-		TableModelListener tableListener = new TableListener(generalLines);
+		TableModelListener tableListener = new TableListener(new CommandManager(generalLines));
 		
 		//assemble the UI
 		BRCPanel brcTable = new BRCPanel(tableListener);

@@ -8,7 +8,11 @@ import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.table.TableModel;
 
+import controller.commands.ChangeDataCommand;
+import controller.commands.ChangeHistory;
+import controller.commands.Command;
 import model.CRBDataModel.CRBDataIngestor;
 import model.CRBDataModel.CRBGeneralData;
 import model.CRBDataModel.CRBLine;
@@ -16,6 +20,28 @@ import view.BRCPanel.BRCPanel;
 
 public class CommandManager {
 
+	private ChangeHistory history = new ChangeHistory();
+	private ArrayList<CRBGeneralData> brc;
+	
+	public CommandManager(ArrayList<CRBGeneralData> brc) {
+		super();
+		this.brc = brc;
+	}
+
+	/**Change the background data based on the changes made in the UI
+	 * @param col
+	 * @param row
+	 * @param data
+	 * @param model
+	 */
+	void changeData(int col, int row, Object data, TableModel model) {
+        
+		Command cmd = new ChangeDataCommand(row, brc.get(row), data);
+		
+		cmd.updateData();
+		history.queueCommand(cmd);
+	}
+	
 	/**Import a BRC from a new data file.
 	 * @param address
 	 * @return

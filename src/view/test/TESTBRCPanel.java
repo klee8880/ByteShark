@@ -1,4 +1,4 @@
-package view.BRCPanel;
+package view.test;
 
 import java.math.BigDecimal;
 
@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import controller.TableListener;
+import view.BRCPanel.BRCPanel;
 
 public class TESTBRCPanel {
 
