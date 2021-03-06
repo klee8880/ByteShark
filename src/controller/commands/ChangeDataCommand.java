@@ -1,8 +1,10 @@
 package controller.commands;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import model.CRBDataModel.CRBGeneralData;
+import view.BRCPanel.IBRCPanel;
 
 public class ChangeDataCommand extends Command{
 
@@ -10,14 +12,15 @@ public class ChangeDataCommand extends Command{
 	CRBGeneralData data;
 	Object oldValue;
 	Object newValue;
-	
+	ArrayList<IBRCPanel> panels;
 
 	
-	public ChangeDataCommand(int columnUpdated, CRBGeneralData data, Object newValue) {
+	public ChangeDataCommand(int columnUpdated, CRBGeneralData data,ArrayList<IBRCPanel> panels , Object newValue) {
 		super();
 		this.columnUpdated = columnUpdated;
 		this.data = data;
 		this.newValue = newValue;
+		this.panels = panels;
 		
 		//Determine the old value based on the column that was changed.
 		switch(columnUpdated) {
@@ -63,13 +66,13 @@ public class ChangeDataCommand extends Command{
 	@Override
 	public void redo() {
 		setTable(columnUpdated, newValue);
-		//TODO: Update the UI
+		//TODO: Update the UI(s)
 	}
 
 	@Override
 	public void undo() {
 		setTable(columnUpdated, oldValue);
-		//TODO: Update the UI
+		//TODO: Update the UI(s)
 	}
 
 	@Override

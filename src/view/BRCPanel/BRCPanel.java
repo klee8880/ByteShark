@@ -12,8 +12,6 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
-import controller.interfaces.IBRCPanel;
-
 /**Table Used to display & manipulate basic BRC data for one repair event.
  * Installed Table Listener should be triggered whenever the user changes an element of the table.
  * 
@@ -100,9 +98,7 @@ public class BRCPanel extends JPanel implements IBRCPanel{
         this.setOpaque(true);
 	}
 
-	/**
-	 * @param newRow - Object[] following the table's schema
-	 */
+	@Override
 	public void addRow(Object[] newRow) {
 		
 		//Validation
@@ -118,33 +114,11 @@ public class BRCPanel extends JPanel implements IBRCPanel{
 		model.addRow(newRow);
 	}
 
-	//Getters & Setters
-	public JTable getTable() {
-		return table;
-	}
-
-	public void setTable(JTable table) {
-		this.table = table;
-	}
-
-	public DefaultTableModel getModel() {
-		return model;
-	}
-
-	public void setModel(DefaultTableModel model) {
-		this.model = model;
-	}
-	
-	public static String[] getSCHEME() {
-		return SCHEME;
-	}
-
-	public static Class[] getDatatype() {
-		return dataType;
-	}
-
-	public File getFilePath() {
+	@Override
+	public File getFilePath(String prompt) {
+		
 		JFileChooser chooser = new JFileChooser();
+		chooser.setDialogTitle(prompt);
 		
 		int result = chooser.showOpenDialog(this);
 		

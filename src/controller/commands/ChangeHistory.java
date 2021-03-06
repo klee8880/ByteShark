@@ -1,5 +1,6 @@
 package controller.commands;
 
+
 import java.util.Stack;
 
 public class ChangeHistory {
@@ -12,6 +13,7 @@ public class ChangeHistory {
 	 */
 	public void queueCommand(Command nextCommand) {
 		undoStack.add(nextCommand);
+		redoStack.clear();
 	}
 	
 	/**Prompts the latest command on the undo log to be reversed in both the data model and the UI if applicable. Commands that are undone are then added to the redo stack in case the user wishes to fast forward later

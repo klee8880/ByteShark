@@ -3,31 +3,41 @@ package controller;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
-
-import javax.swing.JFileChooser;
-import javax.swing.JPanel;
 import javax.swing.table.TableModel;
 
-import controller.commands.ChangeDataCommand;
-import controller.commands.ChangeHistory;
-import controller.commands.Command;
+import controller.commands.*;
 import model.CRBDataModel.CRBDataIngestor;
 import model.CRBDataModel.CRBGeneralData;
 import model.CRBDataModel.CRBLine;
+import view.BRCPanel.BRCEvent;
 import view.BRCPanel.BRCPanel;
+import view.BRCPanel.IBRCPanel;
+import view.BRCPanel.IHomeWindow;
 
 public class CommandManager {
 
 	private ChangeHistory history = new ChangeHistory();
 	private ArrayList<CRBGeneralData> brc;
+	private ArrayList<IBRCPanel> panels = new ArrayList<IBRCPanel>();
 	
 	public CommandManager(ArrayList<CRBGeneralData> brc) {
 		super();
 		this.brc = brc;
 	}
+	
+	public void addUI(IBRCPanel panel){
+		panels.add(panel);
+	}
 
+	private void undo() {
+		history.undo();
+	}
+	
+	private void redo() {
+		history.redo();
+	}
+	
 	/**Change the background data based on the changes made in the UI
 	 * @param col
 	 * @param row
@@ -36,7 +46,7 @@ public class CommandManager {
 	 */
 	void changeData(int col, int row, Object data, TableModel model) {
         
-		Command cmd = new ChangeDataCommand(row, brc.get(row), data);
+		Command cmd = new ChangeDataCommand(row, brc.get(row), panels, data);
 		
 		cmd.updateData();
 		history.queueCommand(cmd);
@@ -122,6 +132,11 @@ public class CommandManager {
 		System.out.println(repairLines.size() + " Records extracted");
 		
 		return repairLines;
+	}
+	
+	public void connectEvents(IHomeWindow window) {
+		window.connectButtons(BRCEvent.Redo, ()-> redo());
+		window.connectButtons(BRCEvent.Undo, ()-> undo());
 	}
 	
 }

@@ -18,11 +18,17 @@ public class Main {
 		ArrayList<CRBGeneralData> generalLines = CommandManager.extractDataLines(brc);
 		
 		//Start Event Handlers
-		TableModelListener tableListener = new TableListener(new CommandManager(generalLines));
+		CommandManager manager = new CommandManager(generalLines);
+		TableModelListener tableListener = new TableListener(manager);
 		
 		//assemble the UI
 		BRCPanel brcTable = new BRCPanel(tableListener);
 		IHomeWindow homeWindow = new HomeWindow(brcTable);
+		
+		//Controller -> UI connections
+		manager.addUI(brcTable);
+		manager.connectEvents(homeWindow);
+		
 		
 		//TODO: TEST ADD DATA TO MODEL
 		CommandManager.pushDataToTable(brc, brcTable);
