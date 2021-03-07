@@ -37,7 +37,7 @@ public class TableListener implements TableModelListener{
 			TableModel model = (TableModel)event.getSource();
 	        Object data = model.getValueAt(row, col);
 	        
-	        System.out.println("UPDATE \nColumn: " + col + "\nValue: " + data);
+	        System.out.println("UPDATE \nRow: " + row + "\nColumn: " + col + "\nValue: " + data);
 	        
 	        row = ((int) model.getValueAt(row, 0)) - 1;
 

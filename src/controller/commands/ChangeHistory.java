@@ -28,6 +28,9 @@ public class ChangeHistory {
 		redoStack.add(cmd);
 	}
 	
+	/**Prompts the latest command that was undo to be redone
+	 * 
+	 */
 	public void redo() {
 		if (redoStack.empty()) return;
 		Command cmd = redoStack.pop();

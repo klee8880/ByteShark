@@ -4,26 +4,28 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import model.CRBDataModel.CRBGeneralData;
-import view.BRCPanel.IBRCPanel;
+import view.Interfaces.IBRCPanel;
 
 public class ChangeDataCommand extends Command{
 
-	int columnUpdated;
+	int col;
+	int row;
 	CRBGeneralData data;
 	Object oldValue;
 	Object newValue;
 	ArrayList<IBRCPanel> panels;
 
 	
-	public ChangeDataCommand(int columnUpdated, CRBGeneralData data,ArrayList<IBRCPanel> panels , Object newValue) {
+	public ChangeDataCommand(int col, int row, CRBGeneralData data, Object newValue, ArrayList<IBRCPanel> panels) {
 		super();
-		this.columnUpdated = columnUpdated;
+		this.col = col;
+		this.row = row;
 		this.data = data;
 		this.newValue = newValue;
 		this.panels = panels;
 		
 		//Determine the old value based on the column that was changed.
-		switch(columnUpdated) {
+		switch(col) {
         	//TODO: row #s should not be editable
         case 1:
         	oldValue = data.getLocation();
@@ -65,20 +67,28 @@ public class ChangeDataCommand extends Command{
 
 	@Override
 	public void redo() {
-		setTable(columnUpdated, newValue);
-		//TODO: Update the UI(s)
+		setTable(col, newValue);
+		setModel(row, col, newValue);
+		//TODO: Update total row if material or labor was changed
 	}
 
 	@Override
 	public void undo() {
-		setTable(columnUpdated, oldValue);
-		//TODO: Update the UI(s)
+		setTable(col, oldValue);
+		setModel(row, col, oldValue);
+		//TODO: Update total row if material or labor was changed
 	}
 
 	@Override
-	public void updateData() {
-		setTable(columnUpdated, newValue);
-		
+	public void update() {
+		setTable(col, newValue);
+		//TODO: Update total row if material or labor was changed
+	}
+	
+	private void setModel(int row, int col, Object value) {
+		for (IBRCPanel panel: panels) {
+			panel.updateModel(col, row, value);
+		}
 	}
 	
 	/**Changes the values on the data model based on the translation from the UI

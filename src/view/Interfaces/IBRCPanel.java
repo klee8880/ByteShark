@@ -1,4 +1,4 @@
-package view.BRCPanel;
+package view.Interfaces;
 
 import java.io.File;
 
@@ -20,5 +20,13 @@ public interface IBRCPanel {
 	 * @param col
 	 */
 	public void setValueAt(Object data, int row, int col);
+
+	
+	/**Update the model so that it reflects the specified change.
+	 * @param col
+	 * @param rowNum
+	 * @param data
+	 */
+	public void updateModel(int col, int rowNum, Object data);
 	
 }

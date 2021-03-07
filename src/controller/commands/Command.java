@@ -15,5 +15,5 @@ public abstract class Command {
 	/**Change the data only since change was triggered from the UI
 	 * 
 	 */
-	public abstract void updateData();
+	public abstract void update();
 }

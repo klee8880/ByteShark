@@ -12,14 +12,15 @@ import model.CRBDataModel.CRBGeneralData;
 import model.CRBDataModel.CRBLine;
 import view.BRCPanel.BRCEvent;
 import view.BRCPanel.BRCPanel;
-import view.BRCPanel.IBRCPanel;
-import view.BRCPanel.IHomeWindow;
+import view.Interfaces.IBRCPanel;
+import view.Interfaces.IHomeWindow;
 
 public class CommandManager {
 
 	private ChangeHistory history = new ChangeHistory();
 	private ArrayList<CRBGeneralData> brc;
 	private ArrayList<IBRCPanel> panels = new ArrayList<IBRCPanel>();
+	private boolean updating = false;
 	
 	public CommandManager(ArrayList<CRBGeneralData> brc) {
 		super();
@@ -31,11 +32,17 @@ public class CommandManager {
 	}
 
 	private void undo() {
+		//System.out.println("UNDO BUTTON");
+		updating = true;
 		history.undo();
+		updating = false;
 	}
 	
 	private void redo() {
+		//System.out.println("REDO BUTTON");
+		updating = true;
 		history.redo();
+		updating = false;
 	}
 	
 	/**Change the background data based on the changes made in the UI
@@ -46,9 +53,15 @@ public class CommandManager {
 	 */
 	void changeData(int col, int row, Object data, TableModel model) {
         
-		Command cmd = new ChangeDataCommand(row, brc.get(row), panels, data);
+		//Flag to check that the change is not spawned from the command manager
+		if (updating) return;
 		
-		cmd.updateData();
+		Command cmd = new ChangeDataCommand(col, row, brc.get(row), data, panels);
+		
+		updating = true;
+		cmd.update();
+		updating = false;
+		
 		history.queueCommand(cmd);
 	}
 	

@@ -1,6 +1,8 @@
-package view.BRCPanel;
+package view.Interfaces;
 
 import javax.swing.JButton;
+
+import view.BRCPanel.BRCEvent;
 
 public interface IHomeWindow {
 

@@ -15,7 +15,7 @@ public class DeleteRowCommand extends Command{
 	}
 
 	@Override
-	public void updateData() {
+	public void update() {
 		// TODO Auto-generated method stub
 		
 	}
