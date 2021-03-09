@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.Semaphore;
+
 import javax.swing.table.TableModel;
 
 import controller.commands.*;
@@ -20,7 +22,7 @@ public class CommandManager {
 	private ChangeHistory history = new ChangeHistory();
 	private ArrayList<CRBGeneralData> brc;
 	private ArrayList<IBRCPanel> panels = new ArrayList<IBRCPanel>();
-	private boolean updating = false;
+	private Semaphore updateFlag = new Semaphore(1);
 	
 	public CommandManager(ArrayList<CRBGeneralData> brc) {
 		super();
@@ -32,17 +34,24 @@ public class CommandManager {
 	}
 
 	private void undo() {
-		//System.out.println("UNDO BUTTON");
-		updating = true;
-		history.undo();
-		updating = false;
+		try {
+			updateFlag.acquire();
+			history.undo();
+			updateFlag.release();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
-	private void redo() {
-		//System.out.println("REDO BUTTON");
-		updating = true;
-		history.redo();
-		updating = false;
+	private void redo(){
+		try {
+			updateFlag.acquire();
+			history.redo();
+			updateFlag.release();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**Change the background data based on the changes made in the UI
@@ -54,13 +63,12 @@ public class CommandManager {
 	void changeData(int col, int row, Object data, TableModel model) {
         
 		//Flag to check that the change is not spawned from the command manager
-		if (updating) return;
+		if (!updateFlag.tryAcquire()) return;
 		
 		Command cmd = new ChangeDataCommand(col, row, brc.get(row), data, panels);
 		
-		updating = true;
 		cmd.update();
-		updating = false;
+		updateFlag.release();
 		
 		history.queueCommand(cmd);
 	}
@@ -148,8 +156,8 @@ public class CommandManager {
 	}
 	
 	public void connectEvents(IHomeWindow window) {
-		window.connectButtons(BRCEvent.Redo, ()-> redo());
-		window.connectButtons(BRCEvent.Undo, ()-> undo());
+		window.connectButtons(BRCEvent.Redo, ()-> {redo();});
+		window.connectButtons(BRCEvent.Undo, ()-> {undo();});
 	}
 	
 }
