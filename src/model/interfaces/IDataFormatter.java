@@ -35,6 +35,11 @@ public interface IDataFormatter <T> {
 	 */
 	public void appendFromDataLine (List <T> inputs);
 	
+	/**Format the data so that it can be written to a plain text file appropriate to the datatype
+	 * 
+	 */
+	public void formatForPlainText();
+	
 	/**Output data for system use in a list format
 	 * @return
 	 */

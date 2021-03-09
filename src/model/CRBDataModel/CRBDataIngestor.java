@@ -79,4 +79,24 @@ public class CRBDataIngestor implements IDataFormatter<CRBLine>, Iterable<CRBLin
 	@Override
 	public void clear() {dataLines.clear();}
 
+	@Override
+	public void formatForPlainText() {
+		// TODO Implement this method
+		
+		//Sort data by Record type
+		
+		//Add Record type summary rows
+		
+		//Add Add address rows
+		
+		//Add total summary row
+		
+	}
+
+	@Override
+	public String toString() {
+		//TODO: implement toString();
+		return null;
+	}
+	
 }
