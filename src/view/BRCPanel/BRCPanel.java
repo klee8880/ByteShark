@@ -37,7 +37,7 @@ public class BRCPanel extends JPanel implements IBRCPanel{
 	private static final long serialVersionUID = -5657231907813507325L;
 	private static String [] SCHEME= {
 			"Row",
-			"Location",
+			"Loc",
 			"Qty",
 			"Con Code",
 			"App Job Code",

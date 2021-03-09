@@ -70,25 +70,32 @@ public class ChangeDataCommand extends Command{
 	public void redo() {
 		setTable(col, newValue);
 		setModel(row, col, newValue);
-		//TODO: Update total row if material or labor was changed
+		totalRowUpdate(row,col);
 	}
 
 	@Override
 	public void undo() {
 		setTable(col, oldValue);
 		setModel(row, col, oldValue);
-		//TODO: Update total row if material or labor was changed
+		totalRowUpdate(row,col);
 	}
 
 	@Override
 	public void update() {
 		setTable(col, newValue);
-		//TODO: Update total row if material or labor was changed
+		totalRowUpdate(row,col);
 	}
 	
 	private void setModel(int row, int col, Object value) {
 		for (IBRCPanel panel: panels) {
 			panel.updateModel(col, row, value);
+		}
+	}
+	
+	private void totalRowUpdate(int row, int col) {
+		if (col == 9 || col == 10) {
+			BigDecimal total = data.getMaterialCharge().add(data.getLaborCharge());
+			setModel(row, 11, total);
 		}
 	}
 	
@@ -128,9 +135,6 @@ public class ChangeDataCommand extends Command{
         	break;
         case 10:
         	data.setMaterialCharge((BigDecimal) value);
-        	break;
-        case 11:
-        	//TODO: figure out how to handle changes to total since it is affected by 8 & 9
         	break;
         default:
         	throw new IllegalArgumentException("Unsupported row edit requested");
