@@ -2,9 +2,10 @@ package controller.commands;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 import model.CRBDataModel.CRBGeneralData;
-import view.Interfaces.IBRCPanel;
+import view.interfaces.IBRCPanel;
 
 public class ChangeDataCommand extends Command{
 
@@ -13,10 +14,10 @@ public class ChangeDataCommand extends Command{
 	CRBGeneralData data;
 	Object oldValue;
 	Object newValue;
-	ArrayList<IBRCPanel> panels;
+	List<IBRCPanel> panels;
 
 	
-	public ChangeDataCommand(int col, int row, CRBGeneralData data, Object newValue, ArrayList<IBRCPanel> panels) {
+	public ChangeDataCommand(int col, int row, CRBGeneralData data, Object newValue, List<IBRCPanel> panels) {
 		super();
 		this.col = col;
 		this.row = row;

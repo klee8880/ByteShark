@@ -1,4 +1,4 @@
-package view.Interfaces;
+package view.interfaces;
 
 public interface IEventCallback {
 	void run();

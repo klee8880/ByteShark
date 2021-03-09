@@ -14,8 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import view.Interfaces.IEventCallback;
-import view.Interfaces.IHomeWindow;
+import view.interfaces.IEventCallback;
+import view.interfaces.IHomeWindow;
 
 /** Home window that shows after startup is complete Begins with an empty table
  * @author klee8

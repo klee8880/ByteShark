@@ -12,7 +12,7 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
-import view.Interfaces.IBRCPanel;
+import view.interfaces.IBRCPanel;
 
 /**Table Used to display & manipulate basic BRC data for one repair event.
  * Installed Table Listener should be triggered whenever the user changes an element of the table.

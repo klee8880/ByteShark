@@ -1,4 +1,4 @@
-package view.Interfaces;
+package view.interfaces;
 
 import javax.swing.JButton;
 

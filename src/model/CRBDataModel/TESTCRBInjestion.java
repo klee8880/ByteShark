@@ -3,7 +3,10 @@ package model.CRBDataModel;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Iterator;
+
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**Testing array for ingestion of data lines
@@ -12,24 +15,39 @@ import org.junit.jupiter.api.Test;
  */
 public class TESTCRBInjestion {
 	
+	static CRBDataIngestor ingestor;
+	
+	@BeforeEach
+	public void initialize() {
+		ingestor = new CRBDataIngestor();
+	}
+	
 	//Tests are run below assuming these inputs remain unchanged.
 	private static final String TESTDATALINE = 		"1PROXUTLX2010PR-I0081677     USH20200709       UTLX678133TE200917047600P77 PR-I0081677     20200917       CSC   00010  8008   09  8008   3          033376200000000DN CLEAN TANK - LUB/CRUDE OIL                        12640047600000                                                    20031600001                                                                                                                                                                                                               ";
 	private static final String TESTCONTACTLINE = 	"6PROXUTLX2010PR-I0081677     UIQPROCOR LIMITED                                                                       BILLING INQUIRES                   905-827-4111             905-469-5208             RBUReceivables@Procor.com                                   585 Michigan Drive, Unit 2                                                                                                                                                          OAKVILLE                           ONCAL6L 0G1            ";
 	private static final String TESTSUMMARYLINE8 = 	"8PROXUTLX2010PR-I0081677     USH000003100014739410000000000333640D201005               30201104                                                                                                                                                                                                                                                                                                                                                                                                                     ";
 	private static final String TESTSUMMARYLINE9 = 	"9PROXZZZZ2010ZZZZZZZZZZZZZZZZZZZ000003100014739410000000000333640D                                                                                                                                                                                                                                                                                                                                                                                                                                                  ";
 	
-	@Test 
+	@Test
 	public void basicLineData() {
 		CRBLine data;
 		try {
-			data = CRBDataIngestor.readDataLine(TESTDATALINE);
+			
+			//Ingest all lines
+			ingestor.appendFromString(TESTDATALINE);
+			ingestor.appendFromString(TESTSUMMARYLINE8);
+			ingestor.appendFromString(TESTCONTACTLINE);
+			
+			//Spit out all lines & test
+			Iterator<CRBLine> iterator = ingestor.iterator();
+			
+			data = iterator.next();
 			Assertions.assertEquals(1, data.recordFormat);
-			
-			data = CRBDataIngestor.readDataLine(TESTSUMMARYLINE8);
+			data = iterator.next();
 			Assertions.assertEquals(8, data.recordFormat);
-			
-			data = CRBDataIngestor.readDataLine(TESTCONTACTLINE);
+			data = iterator.next();
 			Assertions.assertEquals(6, data.recordFormat);
+			
 		} catch (IOException e) {
 			Assertions.fail("Exception Hit");
 			return;
@@ -45,11 +63,15 @@ public class TESTCRBInjestion {
 	}
 	
 	@Test
-	public void dataLineRead() {
+	public void dataLineappend() {
 		
 		CRBLine data;
+		
 		try {
-			data = CRBDataIngestor.readDataLine(TESTDATALINE);
+			
+			ingestor.appendFromString(TESTDATALINE);
+			Iterator<CRBLine> iterator = ingestor.iterator();
+			data = iterator.next();
 		} catch (IOException e) {
 			Assertions.fail("Exception Hit");
 			return;
@@ -74,22 +96,22 @@ public class TESTCRBInjestion {
 	}
 	
 	@Test
-	public void wheelsetLineRead() {
+	public void wheelsetLineappend() {
 		//TODO: get an example of wheelset data and test.
 	}
 	
 	@Test
-	public void summary8LineRead() {
+	public void summary8Lineappend() {
 		
 	}
 	
 	@Test
-	public void summary9LineRead() {
+	public void summary9Lineappend() {
 		
 	}
 	
 	@Test
-	public void contactInfoLineRead() {
+	public void contactInfoLineappend() {
 		
 	}
 	
@@ -99,15 +121,15 @@ public class TESTCRBInjestion {
 		//Incorrect argument length
 		try {
 			//0 length
-			CRBDataIngestor.readDataLine("");
+			ingestor.appendFromString("");
 			//1 length
-			CRBDataIngestor.readDataLine(" ");
+			ingestor.appendFromString(" ");
 			//501 length
 			StringBuilder sb = new StringBuilder();
 			for (int i = 0; i < 501; i++) {
 				sb.append(' ');
 			}
-			CRBDataIngestor.readDataLine(sb.toString());
+			ingestor.appendFromString(sb.toString());
 			
 		} catch (IOException ex) {
 			return;

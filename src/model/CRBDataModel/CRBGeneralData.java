@@ -26,5 +26,6 @@ public class CRBGeneralData extends CRBData {
 	public void setNarrative(String narrative) {
 		this.narrative = narrative;
 	}
+
 	
 }

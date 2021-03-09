@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Semaphore;
 
 import javax.swing.table.TableModel;
@@ -12,21 +13,22 @@ import controller.commands.*;
 import model.CRBDataModel.CRBDataIngestor;
 import model.CRBDataModel.CRBGeneralData;
 import model.CRBDataModel.CRBLine;
+import model.interfaces.IDataFormatter;
 import view.BRCPanel.BRCEvent;
 import view.BRCPanel.BRCPanel;
-import view.Interfaces.IBRCPanel;
-import view.Interfaces.IHomeWindow;
+import view.interfaces.IBRCPanel;
+import view.interfaces.IHomeWindow;
 
 public class CommandManager {
 
 	private ChangeHistory history = new ChangeHistory();
-	private ArrayList<CRBGeneralData> brc;
-	private ArrayList<IBRCPanel> panels = new ArrayList<IBRCPanel>();
+	private List<CRBGeneralData> brc;
+	private List<IBRCPanel> panels = new ArrayList<IBRCPanel>();
 	private Semaphore updateFlag = new Semaphore(1);
 	
-	public CommandManager(ArrayList<CRBGeneralData> brc) {
+	public CommandManager(List<CRBGeneralData> generalLines) {
 		super();
-		this.brc = brc;
+		this.brc = generalLines;
 	}
 	
 	public void addUI(IBRCPanel panel){
@@ -78,32 +80,31 @@ public class CommandManager {
 	 * @return
 	 * @throws IOException
 	 */
-	public static ArrayList<CRBLine> importNewBRC(String address) throws IOException {
+	public static List<CRBLine> importNewBRC(String address) throws IOException {
 		
 		BufferedReader reader;
 		reader = new BufferedReader(new FileReader(address));
-		
-		ArrayList<CRBLine> brc = new ArrayList<CRBLine>();
+		IDataFormatter formatter = new CRBDataIngestor();
 		
 		String line;
 		line = reader.readLine();
 		while (line != null) {
-			brc.add(CRBDataIngestor.readDataLine(line));
+			formatter.appendFromString(line);
 			line = reader.readLine();
 		}
 		
 		reader.close();
-		return brc;
+		return formatter.outputData();
 	}
 	
 	/**Push Data Lines to the selected table.
-	 * @param dataSet
+	 * @param brc2
 	 * @param brcTable
 	 */
-	public static void pushDataToTable(ArrayList<CRBLine> dataSet, BRCPanel brcTable) {
+	public static void pushDataToTable(List<CRBLine> brc2, BRCPanel brcTable) {
 		
 		//Extract actual data lines
-		ArrayList<CRBGeneralData> generalLines = extractDataLines(dataSet);
+		List<CRBGeneralData> generalLines = extractDataLines(brc2);
 		
 		//Check for invalid data
 		if (generalLines.size() < 1) throw new IllegalArgumentException("No Data lines detected");
@@ -137,14 +138,14 @@ public class CommandManager {
 	}
 	
 	/**Extract the actual data lines from the set removing the summary and billing lines
-	 * @param dataSet
+	 * @param brc2
 	 * @return
 	 */
-	public static ArrayList<CRBGeneralData> extractDataLines(ArrayList<CRBLine> dataSet) {
+	public static ArrayList<CRBGeneralData> extractDataLines(List<CRBLine> brc2) {
 		
 		ArrayList<CRBGeneralData> repairLines = new ArrayList<CRBGeneralData>();
 		
-		for (CRBLine line: dataSet) {
+		for (CRBLine line: brc2) {
 			if (line.getRecordFormat() == 1) {
 				repairLines.add((CRBGeneralData)line);
 			}

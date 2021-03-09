@@ -1,11 +1,24 @@
 package model.CRBDataModel;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
-public class CRBDataIngestor {
+import model.interfaces.IDataFormatter;
 
-	public static CRBLine readDataLine (String input) throws IOException {
-		
+public class CRBDataIngestor implements IDataFormatter<CRBLine>, Iterable<CRBLine>{
+	
+	ArrayList<CRBLine> dataLines = new ArrayList<CRBLine>();
+
+	//Methods
+	@Override
+	public Iterator<CRBLine> iterator() {
+		return dataLines.iterator();
+	}
+
+	@Override
+	public void appendFromString(String input) throws IOException {
 		//Check argument length for incorrect data file.
 		if (input.length() != 500) throw new IOException("Incorrect format: Not 500 characters per line");
 		
@@ -16,18 +29,54 @@ public class CRBDataIngestor {
 		switch (recordType) {
 		case 1:
 			 crb = new CRBGeneralData(input);
-			return crb;
+			break;
 		case 6:
 			crb = new CRBContactInfo(input);
-			return crb;
+			break;
 		case 8:
 			crb = new CRBSummary(input);
-			return crb;
+			break;
 		case 9:
 			crb = new CRBTotal(input);
-			return crb;
+			break;
 		default:
 			throw new IllegalArgumentException("Incorrect format: Unexpected record format");
 		}
+		
+		dataLines.add(crb);
+		
 	}
+
+	@Override
+	public void appendFromString(List <String> input) throws IOException {
+		for (String line: input) {
+			this.appendFromString(line);
+		}
+	}
+	
+	@Override
+	public void appendFromDataLine(CRBLine input){
+		dataLines.add(input);
+	}
+
+	@Override
+	public void appendFromDataLine(List<CRBLine> input){
+		for (CRBLine line: input) {
+			this.appendFromDataLine(line);;
+		}
+	}
+	
+	@Override
+	public List<CRBLine> outputData() {
+		
+		ArrayList<CRBLine> output = new ArrayList<CRBLine> ();
+		
+		for (CRBLine c: dataLines) output.add(c);
+		
+		return output;
+	}
+
+	@Override
+	public void clear() {dataLines.clear();}
+
 }

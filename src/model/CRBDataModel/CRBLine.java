@@ -2,7 +2,7 @@ package model.CRBDataModel;
 
 import java.time.LocalDate;
 
-public abstract class CRBLine {
+public abstract class CRBLine implements Comparable <CRBLine> {
 
 	protected int recordFormat; // position 1
 	protected String billingParty;				//2-5
@@ -77,5 +77,9 @@ public abstract class CRBLine {
 		this.priceMaster = priceMaster;
 	}
 
-	
+	//Methods
+	@Override
+	public int compareTo(CRBLine o) {
+		return o.getRecordFormat() - this.getRecordFormat();
+	}
 }

@@ -67,7 +67,7 @@ public class TESTBRCPanel {
 		boolean failed = false;
 		
 		Object[] tableLine = {
-				1,"C",1,1,1111,"NARRATIVE",1111,11,1111,
+				1,"C",1, (short) 1,1111,"NARRATIVE", 1111, 11, (short) 1111,
 				new BigDecimal("0.00"),new BigDecimal("0.00"),
 				new BigDecimal("0.00")};
 		
