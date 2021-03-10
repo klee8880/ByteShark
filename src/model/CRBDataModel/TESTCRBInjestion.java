@@ -30,7 +30,7 @@ public class TESTCRBInjestion {
 	
 	@Test
 	public void basicLineData() {
-		CRBLine data;
+		CRBBase data;
 		try {
 			
 			//Ingest all lines
@@ -39,7 +39,7 @@ public class TESTCRBInjestion {
 			ingestor.appendFromString(TESTCONTACTLINE);
 			
 			//Spit out all lines & test
-			Iterator<CRBLine> iterator = ingestor.iterator();
+			Iterator<CRBBase> iterator = ingestor.iterator();
 			
 			data = iterator.next();
 			Assertions.assertEquals(1, data.recordFormat);
@@ -65,12 +65,12 @@ public class TESTCRBInjestion {
 	@Test
 	public void dataLineappend() {
 		
-		CRBLine data;
+		CRBBase data;
 		
 		try {
 			
 			ingestor.appendFromString(TESTDATALINE);
-			Iterator<CRBLine> iterator = ingestor.iterator();
+			Iterator<CRBBase> iterator = ingestor.iterator();
 			data = iterator.next();
 		} catch (IOException e) {
 			Assertions.fail("Exception Hit");
@@ -85,13 +85,13 @@ public class TESTCRBInjestion {
 		Assertions.assertEquals(1, line.quantity);
 		Assertions.assertEquals(0, line.conditionCode);
 		Assertions.assertEquals("8008", line.appliedJobCode);
-		Assertions.assertEquals("CLEAN TANK - LUB/CRUDE OIL", ((CRBGeneralData)line).narrative);
+		Assertions.assertEquals("CLEAN TANK - LUB/CRUDE OIL", ((CRBData)line).narrative);
 		Assertions.assertEquals("8008", line.removedJobCode);
 		Assertions.assertEquals("09", line.whyMadeCode);
 		Assertions.assertEquals(3, line.responsabilityCode);
 		Assertions.assertTrue(new BigDecimal("3337.62").equals(line.laborCharge));
 		Assertions.assertTrue(new BigDecimal("0").equals(line.materialCharge));
-		Assertions.assertTrue(new BigDecimal("3337.62").equals(((CRBGeneralData)line).getTotalCharge()));
+		Assertions.assertTrue(new BigDecimal("3337.62").equals(((CRBData)line).getTotalCharge()));
 		
 	}
 	

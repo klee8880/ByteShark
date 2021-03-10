@@ -3,7 +3,7 @@ package model.interfaces;
 import java.io.IOException;
 import java.util.List;
 
-import model.CRBDataModel.CRBLine;
+import model.CRBDataModel.CRBBase;
 
 /**Data file builder that for takes in data and 
  * @author klee8

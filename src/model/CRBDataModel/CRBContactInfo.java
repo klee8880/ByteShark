@@ -4,7 +4,7 @@ package model.CRBDataModel;
  * @author klee8
  *
  */
-public class CRBContactInfo extends CRBLine{
+public class CRBContactInfo extends CRBBase{
 	
 	protected String contactType;			//31-32
 	protected String companyName;			//33-82

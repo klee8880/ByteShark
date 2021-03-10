@@ -4,20 +4,20 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.CRBDataModel.CRBGeneralData;
+import model.CRBDataModel.CRBData;
 import view.interfaces.IBRCPanel;
 
 public class ChangeDataCommand extends Command{
 
 	int col;
 	int row;
-	CRBGeneralData data;
+	CRBData data;
 	Object oldValue;
 	Object newValue;
 	List<IBRCPanel> panels;
 
 	
-	public ChangeDataCommand(int col, int row, CRBGeneralData data, Object newValue, List<IBRCPanel> panels) {
+	public ChangeDataCommand(int col, int row, CRBData data, Object newValue, List<IBRCPanel> panels) {
 		super();
 		this.col = col;
 		this.row = row;
@@ -125,7 +125,7 @@ public class ChangeDataCommand extends Command{
         	data.setRemovedJobCode(value.toString());
         	break;
         case 7:
-        	data.setWhyMadeCode(value.toString());
+        	data.setWhyMadeCode((short) value);
         	break;
         case 8:
         	data.setResponsabilityCode((short) value);

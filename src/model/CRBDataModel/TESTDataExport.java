@@ -22,25 +22,25 @@ public class TESTDataExport {
 	}
 	
 	@Test
-	public void recordFormat1 () throws IOException {
+	public void recordFormat1Output () throws IOException {
 		ingestor.appendFromString(TESTDATALINE);
 		Assertions.assertTrue(TESTDATALINE.equals(ingestor.iterator().next().toString()));
 	}
 	
 	@Test
-	public void recordFormat6 () throws IOException {
+	public void recordFormat6Output () throws IOException {
 		ingestor.appendFromString(TESTCONTACTLINE);
 		Assertions.assertTrue(TESTCONTACTLINE.equals(ingestor.iterator().next().toString()));
 	}
 	
 	@Test
-	public void recordFormat8 () throws IOException {
+	public void recordFormat8Output () throws IOException {
 		ingestor.appendFromString(TESTSUMMARYLINE8);
 		Assertions.assertTrue(TESTSUMMARYLINE8.equals(ingestor.iterator().next().toString()));
 	}
 	
 	@Test
-	public void recordFormat9 () throws IOException {
+	public void recordFormat9Output () throws IOException {
 		ingestor.appendFromString(TESTSUMMARYLINE9);
 		Assertions.assertTrue(TESTSUMMARYLINE9.equals(ingestor.iterator().next().toString()));
 	}

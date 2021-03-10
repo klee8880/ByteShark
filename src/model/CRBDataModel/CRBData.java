@@ -1,14 +1,13 @@
 package model.CRBDataModel;
 
 import java.math.BigDecimal;
-import java.sql.Date;
 import java.time.LocalDate;
 
 /**Record Format 1: A line from a billing repair card containing billing data and coding. Further delineated with general and wheel set type formats based on need.
  * @author klee8
  *
  */
-public abstract class CRBData extends CRBLine{
+public class CRBData extends CRBBase{
 	
 	protected String detailSource;				//31-32
 	protected String docRefNum;					//33-47
@@ -27,7 +26,7 @@ public abstract class CRBData extends CRBLine{
 	protected short conditionCode;				//117
 	protected String appliedJobCode;			//120-123
 	protected String appliedQualifier;			//124-125
-	protected String whyMadeCode;				//127-128
+	protected Short whyMadeCode;				//127-128
 	protected String removedJobCode; 			//131-134
 	protected String removedQualifier;			//135-136
 	protected short responsabilityCode;			//138
@@ -39,7 +38,7 @@ public abstract class CRBData extends CRBLine{
 	protected char machinePriceable;			//165
 	protected char wrongRepairIndicator;		//166
 	
-	//Lines 167-216 are either the narrative or the wheelset data for the car.
+	protected String narrative;	
 	
 	protected BigDecimal laborRate;				//217-221
 	protected int expandedSPLC;					//222-230
@@ -60,31 +59,29 @@ public abstract class CRBData extends CRBLine{
 	public CRBData(String input) {
 		super(input);
 		
-		BigDecimal divider = new BigDecimal("100");
-		
-		this.detailSource = input.substring(30,32);
-		this.docRefNum = input.substring(32,47);
-		this.carInitial = input.substring(47,51);
+		this.detailSource = input.substring(30,32).trim();
+		this.docRefNum = input.substring(32,47).trim();
+		this.carInitial = input.substring(47,51).trim();
 		this.carNumber = Integer.parseInt(input.substring(51,57));
 		this.carType = input.charAt(57);
 		this.loadIndicator = input.charAt(58);
 		this.repairDate = LocalDate.of(
 				2000 + Integer.parseInt(input.substring(59,61)), 
 				Integer.parseInt(input.substring(61,63)), 
-				1);
+				Integer.parseInt(input.substring(63,65)));
 		SPLC = Integer.parseInt(input.substring(65,71));
-		this.repairParty = input.substring(71,75);
-		this.repairPartyInvoiceNum = input.substring(75, 91);
-		this.repairPartyDocRef = input.substring(91, 106);
-		this.facilityType = input.substring(106, 108);
-		this.location = input.substring(108, 110);
+		this.repairParty = input.substring(71,75).trim();
+		this.repairPartyInvoiceNum = input.substring(75, 91).trim();
+		this.repairPartyDocRef = input.substring(91, 106).trim();
+		this.facilityType = input.substring(106, 108).trim();
+		this.location = input.substring(108, 110).trim();
 		this.quantity = Integer.parseInt(input.substring(112, 116));
 		this.conditionCode = Short.parseShort(input.substring(116, 117));
-		this.appliedJobCode = input.substring(119, 123);
-		this.appliedQualifier = input.substring(123, 125);
-		this.whyMadeCode = input.substring(126, 128);
-		this.removedJobCode = input.substring(130, 134);
-		this.removedQualifier = input.substring(134, 136);
+		this.appliedJobCode = input.substring(119, 123).trim();
+		this.appliedQualifier = input.substring(123, 125).trim();
+		this.whyMadeCode = Short.parseShort(input.substring(126, 128));
+		this.removedJobCode = input.substring(130, 134).trim();
+		this.removedQualifier = input.substring(134, 136).trim();
 		this.responsabilityCode = Short.parseShort(input.substring(137,138));
 		
 		//Check if Defect Card is present
@@ -98,11 +95,14 @@ public abstract class CRBData extends CRBLine{
 			this.defectDate = null;
 		}
 		
+		BigDecimal divider = new BigDecimal("100");
+		
 		this.laborCharge = new BigDecimal(input.substring(148,155)).divide(divider);
 		this.materialCharge = new BigDecimal(input.substring(155,163)).divide(divider);
 		this.materialSign = input.charAt(163);
 		this.machinePriceable = input.charAt(164);
 		this.wrongRepairIndicator = input.charAt(165);
+		this.narrative = input.substring(166,216).trim();
 		this.laborRate = new BigDecimal(input.substring(216,221)).divide(divider);
 		this.expandedSPLC = Integer.parseInt(input.substring(221, 230));
 		
@@ -267,11 +267,11 @@ public abstract class CRBData extends CRBLine{
 		this.appliedQualifier = appliedQualifier;
 	}
 
-	public String getWhyMadeCode() {
+	public Short getWhyMadeCode() {
 		return whyMadeCode;
 	}
 
-	public void setWhyMadeCode(String whyMadeCode) {
+	public void setWhyMadeCode(Short whyMadeCode) {
 		this.whyMadeCode = whyMadeCode;
 	}
 
@@ -355,6 +355,14 @@ public abstract class CRBData extends CRBLine{
 		this.wrongRepairIndicator = wrongRepairIndicator;
 	}
 
+	public String getNarrative() {
+		return narrative;
+	}
+
+	public void setNarrative(String narrative) {
+		this.narrative = narrative;
+	}
+	
 	public BigDecimal getLaborRate() {
 		return laborRate;
 	}
@@ -445,6 +453,133 @@ public abstract class CRBData extends CRBLine{
 
 	public BigDecimal getTotalCharge() {
 		return laborCharge.add(materialCharge);
+	}
+	
+	//Methods
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(super.toString());
+		sb.append(this.detailSource);
+		sb.append(String.format("%-15s", this.docRefNum));
+		sb.append(this.carInitial);
+		sb.append(String.format("%06d", this.carNumber));
+		sb.append(this.carType);
+		sb.append(this.loadIndicator);
+		
+		sb.append(covertDateYYMMDD(this.repairDate));
+		
+		sb.append(String.format("%06d", this.SPLC));
+		sb.append(String.format("%-4s", this.repairParty));
+		sb.append(String.format("%-16s", this.repairPartyInvoiceNum));
+		sb.append(String.format("%-15s", this.repairPartyDocRef));
+		sb.append(this.facilityType);
+		
+		sb.append(String.format("%-4s", this.location));
+		sb.append(String.format("%04d", this.quantity));
+		sb.append(this.conditionCode);
+		sb.append("  ");
+		sb.append(this.appliedJobCode);
+		sb.append(String.format("%-3s", this.appliedQualifier));
+		sb.append(String.format("%02d", this.whyMadeCode));
+		sb.append("  ");
+		sb.append(this.removedJobCode);
+		sb.append(String.format("%-3s", this.removedQualifier));
+		sb.append(this.responsabilityCode);
+		sb.append(String.format("%-4s", this.defectParty));
+		
+		sb.append(covertDateYYMMDD(this.defectDate));
+		
+		sb.append(convertBigDecimal("%07d", this.laborCharge));
+		sb.append(convertBigDecimal("%08d", this.materialCharge));
+		
+		sb.append(this.materialSign);
+		sb.append(this.machinePriceable);
+		sb.append(this.wrongRepairIndicator);
+		sb.append(String.format("%-50s", this.narrative));
+		
+		sb.append(convertBigDecimal("%05d", this.laborRate));
+		
+		sb.append(String.format("%09d", this.expandedSPLC));
+		
+		//TODO: CIF areas not implemented
+		for (int i = 0; i < 13 * 4; i++) {
+			sb.append(' ');
+		}
+		
+		sb.append(covertDateYYMMDD(this.arrivalDate));
+		
+		sb.append(String.format("%05d", this.lineNumber));
+		
+		//Only to be filled by railinc
+		for (int i = 0; i < 12; i++) {
+			sb.append(' ');
+		}
+		
+		sb.append(this.resubmittedInvoice);
+		sb.append(String.format("%-16s", this.originalInvoiceNumber));
+		sb.append(covertDateYYMM(this.originalAccountDate));
+		
+		sb.append(String.format("%-14s", this.AARComponentID));
+		
+		//Reserved for other uses
+		for (int i = 0; i < 160; i++) {
+			sb.append(' ');
+		}
+		
+		return sb.toString();
+	}
+	
+	/**Converts BigDecimal notation to string notation for an output file and applying the relevant string formmatting specified.
+	 * @param format - A format string in the style of String.format( "...", Obj)
+	 * @param decimal - Big Decimal to be converted
+	 * @return
+	 */
+	private static String convertBigDecimal(String format, BigDecimal decimal) {
+		
+		BigDecimal factor = decimal.multiply(new BigDecimal("100"));
+		
+		int result = factor.intValue();
+		
+		return String.format(format, result);
+	}
+	
+	/**Converts Local date to a date of the format YYMMDD
+	 * @param date
+	 * @return
+	 */
+	private static StringBuilder covertDateYYMMDD(LocalDate date) {
+		
+		StringBuilder sb = new StringBuilder();
+		
+		if (date != null) {
+			sb.append(String.format("%02d",date.getYear() - 2000));
+			sb.append(String.format("%02d",date.getMonthValue()));
+			sb.append(String.format("%02d",date.getDayOfMonth()));
+		}
+		else {
+			sb.append("      ");
+		}
+		
+		return sb;
+		
+	}
+	
+	private static StringBuilder covertDateYYMM(LocalDate date) {
+		
+		StringBuilder sb = new StringBuilder();
+		
+		if (date != null) {
+			sb.append(String.format("%02d",date.getYear() - 2000));
+			sb.append(String.format("%02d",date.getMonthValue()));
+		}
+		else {
+			sb.append("    ");
+		}
+		
+		return sb;
+		
 	}
 }
 

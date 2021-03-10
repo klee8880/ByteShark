@@ -7,13 +7,13 @@ import java.util.List;
 
 import model.interfaces.IDataFormatter;
 
-public class CRBDataIngestor implements IDataFormatter<CRBLine>, Iterable<CRBLine>{
+public class CRBDataIngestor implements IDataFormatter<CRBBase>, Iterable<CRBBase>{
 	
-	ArrayList<CRBLine> dataLines = new ArrayList<CRBLine>();
+	ArrayList<CRBBase> dataLines = new ArrayList<CRBBase>();
 
 	//Methods
 	@Override
-	public Iterator<CRBLine> iterator() {
+	public Iterator<CRBBase> iterator() {
 		return dataLines.iterator();
 	}
 
@@ -24,11 +24,11 @@ public class CRBDataIngestor implements IDataFormatter<CRBLine>, Iterable<CRBLin
 		
 		//Switch based on the detected record type.
 		int recordType = Integer.parseInt(input.substring(0, 1));
-		CRBLine crb;
+		CRBBase crb;
 		
 		switch (recordType) {
 		case 1:
-			 crb = new CRBGeneralData(input);
+			 crb = new CRBData(input);
 			break;
 		case 6:
 			crb = new CRBContactInfo(input);
@@ -55,23 +55,23 @@ public class CRBDataIngestor implements IDataFormatter<CRBLine>, Iterable<CRBLin
 	}
 	
 	@Override
-	public void appendFromDataLine(CRBLine input){
+	public void appendFromDataLine(CRBBase input){
 		dataLines.add(input);
 	}
 
 	@Override
-	public void appendFromDataLine(List<CRBLine> input){
-		for (CRBLine line: input) {
+	public void appendFromDataLine(List<CRBBase> input){
+		for (CRBBase line: input) {
 			this.appendFromDataLine(line);;
 		}
 	}
 	
 	@Override
-	public List<CRBLine> outputData() {
+	public List<CRBBase> outputData() {
 		
-		ArrayList<CRBLine> output = new ArrayList<CRBLine> ();
+		ArrayList<CRBBase> output = new ArrayList<CRBBase> ();
 		
-		for (CRBLine c: dataLines) output.add(c);
+		for (CRBBase c: dataLines) output.add(c);
 		
 		return output;
 	}

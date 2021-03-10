@@ -58,7 +58,7 @@ public class BRCPanel extends JPanel implements IBRCPanel{
 			Integer.class,
 			String.class,
 			Integer.class,
-			Integer.class,
+			Short.class,
 			Short.class,
 			BigDecimal.class,
 			BigDecimal.class,

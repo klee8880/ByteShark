@@ -7,7 +7,7 @@ import java.time.LocalDate;
  * @author klee8
  *
  */
-public class CRBSummary extends CRBLine{
+public class CRBSummary extends CRBBase{
 
 
 	protected String detailSource;				//31-32

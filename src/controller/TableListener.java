@@ -6,8 +6,7 @@ import java.util.ArrayList;
 import javax.swing.event.*;
 import javax.swing.table.TableModel;
 
-import model.CRBDataModel.CRBGeneralData;
-import model.CRBDataModel.CRBLine;
+import model.CRBDataModel.CRBBase;
 
 /**Handles updates coming from the associated JTable
  * @author klee8

@@ -6,7 +6,7 @@ import java.math.BigDecimal;
  * @author klee8
  *
  */
-public class CRBTotal extends CRBLine{
+public class CRBTotal extends CRBBase{
 
 	protected int recordCount;				//33-39
 	protected BigDecimal laborCharge;		//40-49

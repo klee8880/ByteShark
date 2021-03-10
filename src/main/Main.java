@@ -1,6 +1,5 @@
 package main;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.event.TableModelListener;
@@ -17,8 +16,8 @@ public class Main {
 	public static void main (String[] args) throws Exception {
 
 		//TODO: TEST FILE INPUT
-		List<CRBLine> brc = CommandManager.importNewBRC(TESTFILE);
-		List<CRBGeneralData> generalLines = CommandManager.extractDataLines(brc);
+		List<CRBBase> brc = CommandManager.importNewBRC(TESTFILE);
+		List<CRBData> generalLines = CommandManager.extractDataLines(brc);
 		
 		//Start Event Handlers
 		CommandManager manager = new CommandManager(generalLines);

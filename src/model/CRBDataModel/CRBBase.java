@@ -2,7 +2,7 @@ package model.CRBDataModel;
 
 import java.time.LocalDate;
 
-public abstract class CRBLine implements Comparable <CRBLine> {
+public abstract class CRBBase implements Comparable <CRBBase> {
 
 	protected int recordFormat; // position 1
 	protected String billingParty;				//2-5
@@ -12,11 +12,11 @@ public abstract class CRBLine implements Comparable <CRBLine> {
 	protected char priceMaster;					//30
 	
 	//Constructor
-	public CRBLine() {
+	public CRBBase() {
 		
 	}
 	
-	public CRBLine(String input) {
+	public CRBBase(String input) {
 		recordFormat = Integer.parseInt(input.substring(0, 1));
 		billingParty = input.substring(1, 5);
 		billedParty = input.substring(5, 9);
@@ -79,7 +79,34 @@ public abstract class CRBLine implements Comparable <CRBLine> {
 
 	//Methods
 	@Override
-	public int compareTo(CRBLine o) {
+	public int compareTo(CRBBase o) {
 		return o.getRecordFormat() - this.getRecordFormat();
+	}
+	
+	@Override
+	public String toString() {
+		
+		StringBuilder sb = new StringBuilder();
+		
+		//Record Format
+		sb.append(this.recordFormat);
+		
+		//Billing party
+		sb.append(this.billingParty);
+		
+		//Billed party
+		sb.append(this.billedParty);
+		
+		//Account date
+		sb.append(this.accountDate.getYear() - 2000);
+		sb.append(String.format("%02d", this.accountDate.getMonthValue()));
+		
+		//Invoice Number
+		sb.append(String.format("%-16s", this.invoiceNumber));
+		
+		//Price Master
+		sb.append(this.priceMaster);
+		
+		return sb.toString();
 	}
 }

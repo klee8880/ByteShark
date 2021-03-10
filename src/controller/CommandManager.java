@@ -11,8 +11,8 @@ import javax.swing.table.TableModel;
 
 import controller.commands.*;
 import model.CRBDataModel.CRBDataIngestor;
-import model.CRBDataModel.CRBGeneralData;
-import model.CRBDataModel.CRBLine;
+import model.CRBDataModel.CRBBase;
+import model.CRBDataModel.CRBData;
 import model.interfaces.IDataFormatter;
 import view.BRCPanel.BRCEvent;
 import view.BRCPanel.BRCPanel;
@@ -22,11 +22,11 @@ import view.interfaces.IHomeWindow;
 public class CommandManager {
 
 	private ChangeHistory history = new ChangeHistory();
-	private List<CRBGeneralData> brc;
+	private List<CRBData> brc;
 	private List<IBRCPanel> panels = new ArrayList<IBRCPanel>();
 	private Semaphore updateFlag = new Semaphore(1);
 	
-	public CommandManager(List<CRBGeneralData> generalLines) {
+	public CommandManager(List<CRBData> generalLines) {
 		super();
 		this.brc = generalLines;
 	}
@@ -80,7 +80,7 @@ public class CommandManager {
 	 * @return
 	 * @throws IOException
 	 */
-	public static List<CRBLine> importNewBRC(String address) throws IOException {
+	public static List<CRBBase> importNewBRC(String address) throws IOException {
 		
 		BufferedReader reader;
 		reader = new BufferedReader(new FileReader(address));
@@ -98,20 +98,20 @@ public class CommandManager {
 	}
 	
 	/**Push Data Lines to the selected table.
-	 * @param brc2
+	 * @param brc
 	 * @param brcTable
 	 */
-	public static void pushDataToTable(List<CRBLine> brc2, BRCPanel brcTable) {
+	public static void pushDataToTable(List<CRBBase> brc, BRCPanel brcTable) {
 		
 		//Extract actual data lines
-		List<CRBGeneralData> generalLines = extractDataLines(brc2);
+		List<CRBData> generalLines = extractDataLines(brc);
 		
 		//Check for invalid data
 		if (generalLines.size() < 1) throw new IllegalArgumentException("No Data lines detected");
 		
 		int lineCount = 0;
 		
-		for (CRBGeneralData dataLine: generalLines) {
+		for (CRBData dataLine: generalLines) {
 			
 			lineCount++;
 			
@@ -124,7 +124,7 @@ public class CommandManager {
 					Integer.parseInt(dataLine.getAppliedJobCode()),//
 					dataLine.getNarrative(),//
 					Integer.parseInt(dataLine.getRemovedJobCode()),//
-					Integer.parseInt(dataLine.getWhyMadeCode()),//
+					dataLine.getWhyMadeCode(),//
 					dataLine.getResponsabilityCode(),//
 					dataLine.getLaborCharge(),
 					dataLine.getMaterialCharge(),
@@ -141,13 +141,13 @@ public class CommandManager {
 	 * @param brc2
 	 * @return
 	 */
-	public static ArrayList<CRBGeneralData> extractDataLines(List<CRBLine> brc2) {
+	public static List<CRBData> extractDataLines(List<CRBBase> brc2) {
 		
-		ArrayList<CRBGeneralData> repairLines = new ArrayList<CRBGeneralData>();
+		List<CRBData> repairLines = new ArrayList<CRBData>();
 		
-		for (CRBLine line: brc2) {
+		for (CRBBase line: brc2) {
 			if (line.getRecordFormat() == 1) {
-				repairLines.add((CRBGeneralData)line);
+				repairLines.add((CRBData)line);
 			}
 		}
 		
