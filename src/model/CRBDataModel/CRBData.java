@@ -3,7 +3,7 @@ package model.CRBDataModel;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-/**Record Format 1: A line from a billing repair card containing billing data and coding. Further delineated with general and wheel set type formats based on need.
+/**Record Format 1: A line from a billing repair card containing billing data and coding.
  * @author klee8
  *
  */
@@ -69,7 +69,7 @@ public class CRBData extends CRBBase{
 				2000 + Integer.parseInt(input.substring(59,61)), 
 				Integer.parseInt(input.substring(61,63)), 
 				Integer.parseInt(input.substring(63,65)));
-		SPLC = Integer.parseInt(input.substring(65,71));
+		this.SPLC = Integer.parseInt(input.substring(65,71));
 		this.repairParty = input.substring(71,75).trim();
 		this.repairPartyInvoiceNum = input.substring(75, 91).trim();
 		this.repairPartyDocRef = input.substring(91, 106).trim();
