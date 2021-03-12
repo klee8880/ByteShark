@@ -1,10 +1,12 @@
-package model.CRBDataModel;
+package model.test;
 
 import java.io.IOException;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import model.CRBDataModel.CRBDataIngestor;
 
 public class TESTDataExport {
 

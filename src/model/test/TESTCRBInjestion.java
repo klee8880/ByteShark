@@ -1,4 +1,4 @@
-package model.CRBDataModel;
+package model.test;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -8,6 +8,10 @@ import java.util.Iterator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import model.CRBDataModel.CRBBase;
+import model.CRBDataModel.CRBData;
+import model.CRBDataModel.CRBDataIngestor;
 
 /**Testing array for ingestion of data lines
  * @author klee8
@@ -42,23 +46,23 @@ public class TESTCRBInjestion {
 			Iterator<CRBBase> iterator = ingestor.iterator();
 			
 			data = iterator.next();
-			Assertions.assertEquals(1, data.recordFormat);
+			Assertions.assertEquals(1, data.getRecordFormat());
 			data = iterator.next();
-			Assertions.assertEquals(8, data.recordFormat);
+			Assertions.assertEquals(8, data.getRecordFormat());
 			data = iterator.next();
-			Assertions.assertEquals(6, data.recordFormat);
+			Assertions.assertEquals(6, data.getRecordFormat());
 			
 		} catch (IOException e) {
 			Assertions.fail("Exception Hit");
 			return;
 		}
 		
-		Assertions.assertEquals("PROX", data.billingParty);
-		Assertions.assertEquals("UTLX", data.billedParty);
+		Assertions.assertEquals("PROX", data.getBillingParty());
+		Assertions.assertEquals("UTLX", data.getBilledParty());
 		LocalDate date = LocalDate.of(2020, 10, 1);
-		Assertions.assertTrue(date.equals(data.accountDate));
-		Assertions.assertEquals("PR-I0081677", data.invoiceNumber);
-		Assertions.assertEquals('U', data.priceMaster);
+		Assertions.assertTrue(date.equals(data.getAccountDate()));
+		Assertions.assertEquals("PR-I0081677", data.getInvoiceNumber());
+		Assertions.assertEquals('U', data.getPriceMaster());
 		
 	}
 	
@@ -81,16 +85,16 @@ public class TESTCRBInjestion {
 		
 		CRBData line = (CRBData) data;
 		
-		Assertions.assertEquals("C ", line.location);
-		Assertions.assertEquals(1, line.quantity);
-		Assertions.assertEquals(0, line.conditionCode);
-		Assertions.assertEquals("8008", line.appliedJobCode);
-		Assertions.assertEquals("CLEAN TANK - LUB/CRUDE OIL", ((CRBData)line).narrative);
-		Assertions.assertEquals("8008", line.removedJobCode);
-		Assertions.assertEquals("09", line.whyMadeCode);
-		Assertions.assertEquals(3, line.responsabilityCode);
-		Assertions.assertTrue(new BigDecimal("3337.62").equals(line.laborCharge));
-		Assertions.assertTrue(new BigDecimal("0").equals(line.materialCharge));
+		Assertions.assertEquals("C ", line.getLocation());
+		Assertions.assertEquals(1, line.getQuantity());
+		Assertions.assertEquals(0, line.getConditionCode());
+		Assertions.assertEquals("8008", line.getAppliedJobCode());
+		Assertions.assertEquals("CLEAN TANK - LUB/CRUDE OIL", ((CRBData)line).getNarrative());
+		Assertions.assertEquals("8008", line.getRemovedJobCode());
+		Assertions.assertEquals("09", line.getWhyMadeCode());
+		Assertions.assertEquals(3, line.getResponsabilityCode());
+		Assertions.assertTrue(new BigDecimal("3337.62").equals(line.getLaborCharge()));
+		Assertions.assertTrue(new BigDecimal("0").equals(line.getMaterialCharge()));
 		Assertions.assertTrue(new BigDecimal("3337.62").equals(((CRBData)line).getTotalCharge()));
 		
 	}
