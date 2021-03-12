@@ -531,56 +531,6 @@ public class CRBData extends CRBBase{
 		return sb.toString();
 	}
 	
-	/**Converts BigDecimal notation to string notation for an output file and applying the relevant string formmatting specified.
-	 * @param format - A format string in the style of String.format( "...", Obj)
-	 * @param decimal - Big Decimal to be converted
-	 * @return
-	 */
-	private static String convertBigDecimal(String format, BigDecimal decimal) {
-		
-		BigDecimal factor = decimal.multiply(new BigDecimal("100"));
-		
-		int result = factor.intValue();
-		
-		return String.format(format, result);
-	}
-	
-	/**Converts Local date to a date of the format YYMMDD
-	 * @param date
-	 * @return
-	 */
-	private static StringBuilder covertDateYYMMDD(LocalDate date) {
-		
-		StringBuilder sb = new StringBuilder();
-		
-		if (date != null) {
-			sb.append(String.format("%02d",date.getYear() - 2000));
-			sb.append(String.format("%02d",date.getMonthValue()));
-			sb.append(String.format("%02d",date.getDayOfMonth()));
-		}
-		else {
-			sb.append("      ");
-		}
-		
-		return sb;
-		
-	}
-	
-	private static StringBuilder covertDateYYMM(LocalDate date) {
-		
-		StringBuilder sb = new StringBuilder();
-		
-		if (date != null) {
-			sb.append(String.format("%02d",date.getYear() - 2000));
-			sb.append(String.format("%02d",date.getMonthValue()));
-		}
-		else {
-			sb.append("    ");
-		}
-		
-		return sb;
-		
-	}
 }
 
 

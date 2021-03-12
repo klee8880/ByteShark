@@ -81,7 +81,7 @@ public class CRBDataIngestor implements IDataFormatter<CRBBase>, Iterable<CRBBas
 
 	@Override
 	public void formatForPlainText() {
-		// TODO Implement this method
+		// TODO: Implement this method
 		
 		//Sort data by Record type
 		

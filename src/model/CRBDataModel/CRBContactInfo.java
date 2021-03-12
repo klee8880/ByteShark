@@ -24,21 +24,21 @@ public class CRBContactInfo extends CRBBase{
 	
 	public CRBContactInfo(String input) {
 		super(input);
-		this.contactType = input.substring(30, 32);
-		this.companyName = input.substring(32, 82);
-		this.optionalName = input.substring(82, 117);
-		this.title = input.substring(117, 152);
-		this.phone = input.substring(152, 177);
-		this.fax = input.substring(177, 201);
-		this.email = input.substring(202, 261);
-		this.address1 = input.substring(262, 307);
-		this.address2 = input.substring(307, 352);
-		this.address3 = input.substring(352, 397);
-		this.address4 = input.substring(397, 442);
-		this.city = input.substring(442, 477);
-		this.state = input.substring(477 ,479);
-		this.countryCode = input.substring(479, 481);
-		this.zipCode = input.substring(481, 491);
+		this.contactType = input.substring(30, 32).trim();
+		this.companyName = input.substring(32, 82).trim();
+		this.optionalName = input.substring(82, 117).trim();
+		this.title = input.substring(117, 152).trim();
+		this.phone = input.substring(152, 177).trim();
+		this.fax = input.substring(177, 201).trim();
+		this.email = input.substring(202, 261).trim();
+		this.address1 = input.substring(262, 307).trim();
+		this.address2 = input.substring(307, 352).trim();
+		this.address3 = input.substring(352, 397).trim();
+		this.address4 = input.substring(397, 442).trim();
+		this.city = input.substring(442, 477).trim();
+		this.state = input.substring(477 ,479).trim();
+		this.countryCode = input.substring(479, 481).trim();
+		this.zipCode = input.substring(481, 491).trim();
 	}
 	
 	@Override
