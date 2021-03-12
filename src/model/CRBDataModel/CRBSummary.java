@@ -28,7 +28,7 @@ public class CRBSummary extends CRBBase{
 		
 		
 		
-		this.detailSource = input.substring(30, 32);
+		this.detailSource = input.substring(30, 32).trim();
 		this.recordCount = Integer.parseInt(input.substring(32, 39));
 		
 		BigDecimal divider = new BigDecimal("100");
@@ -38,7 +38,7 @@ public class CRBSummary extends CRBBase{
 		this.sign = input.charAt(65);
 		
 		try {
-		this.invoiceDate = LocalDate.of(
+			this.invoiceDate = LocalDate.of(
 				2000 + Integer.parseInt(input.substring(66, 68)), 
 				Integer.parseInt(input.substring(68, 70)), 
 				Integer.parseInt(input.substring(70, 72)));
@@ -46,11 +46,11 @@ public class CRBSummary extends CRBBase{
 			this.invoiceDate = null;
 		}
 		
-		this.taxPayerId = input.substring(72, 87);
+		this.taxPayerId = input.substring(72, 87).trim();
 		this.paymentTerms = Integer.parseInt(input.substring(87, 89));
 		
 		try {
-		this.paymentDueDate = LocalDate.of(
+			this.paymentDueDate = LocalDate.of(
 				2000 + Integer.parseInt(input.substring(89, 91)), 
 				Integer.parseInt(input.substring(91, 93)), 
 				Integer.parseInt(input.substring(93, 95)));
@@ -58,13 +58,88 @@ public class CRBSummary extends CRBBase{
 			this.paymentDueDate = null;
 		}
 		
-		
 	}
 
 	public CRBSummary() {
 	}
 	
+	//Getters & Setters
+
+	public String getDetailSource() {
+		return detailSource;
+	}
+
+	public void setDetailSource(String detailSource) {
+		this.detailSource = detailSource;
+	}
+
+	public int getRecordCount() {
+		return recordCount;
+	}
+
+	public void setRecordCount(int recordCount) {
+		this.recordCount = recordCount;
+	}
+
+	public BigDecimal getLaborCharge() {
+		return laborCharge;
+	}
+
+	public void setLaborCharge(BigDecimal laborCharge) {
+		this.laborCharge = laborCharge;
+	}
+
+	public BigDecimal getMaterialCharge() {
+		return materialCharge;
+	}
+
+	public void setMaterialCharge(BigDecimal materialCharge) {
+		this.materialCharge = materialCharge;
+	}
+
+	public char getSign() {
+		return sign;
+	}
+
+	public void setSign(char sign) {
+		this.sign = sign;
+	}
+
+	public LocalDate getInvoiceDate() {
+		return invoiceDate;
+	}
+
+	public void setInvoiceDate(LocalDate invoiceDate) {
+		this.invoiceDate = invoiceDate;
+	}
+
+	public String getTaxPayerId() {
+		return taxPayerId;
+	}
+
+	public void setTaxPayerId(String taxPayerId) {
+		this.taxPayerId = taxPayerId;
+	}
+
+	public int getPaymentTerms() {
+		return paymentTerms;
+	}
+
+	public void setPaymentTerms(int paymentTerms) {
+		this.paymentTerms = paymentTerms;
+	}
+
+	public LocalDate getPaymentDueDate() {
+		return paymentDueDate;
+	}
+
+	public void setPaymentDueDate(LocalDate paymentDueDate) {
+		this.paymentDueDate = paymentDueDate;
+	}
+	
+	
 	//Methods
+	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
