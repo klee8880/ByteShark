@@ -109,15 +109,12 @@ public class CommandManager {
 		//Check for invalid data
 		if (generalLines.size() < 1) throw new IllegalArgumentException("No Data lines detected");
 		
-		int lineCount = 0;
-		
 		for (CRBData dataLine: generalLines) {
 			
-			lineCount++;
 			
 			//Format for data table
 			Object[] tableLine = {
-					lineCount,//
+					dataLine.getLineNumber(),//
 					dataLine.getLocation(),//
 					dataLine.getQuantity(),//
 					dataLine.getConditionCode(),//
