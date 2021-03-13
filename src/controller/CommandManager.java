@@ -138,11 +138,11 @@ public class CommandManager {
 	 * @param brc2
 	 * @return
 	 */
-	public static List<CRBData> extractDataLines(List<CRBBase> brc2) {
+	public static List<CRBData> extractDataLines(List<CRBBase> brc) {
 		
 		List<CRBData> repairLines = new ArrayList<CRBData>();
 		
-		for (CRBBase line: brc2) {
+		for (CRBBase line: brc) {
 			if (line.getRecordFormat() == 1) {
 				repairLines.add((CRBData)line);
 			}

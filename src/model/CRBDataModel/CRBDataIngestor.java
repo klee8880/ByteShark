@@ -18,9 +18,9 @@ public class CRBDataIngestor implements IDataFormatter<CRBBase>, Iterable<CRBBas
 	}
 
 	@Override
-	public void appendFromString(String input) throws IOException {
+	public void appendFromString(String input) throws IllegalArgumentException {
 		//Check argument length for incorrect data file.
-		if (input.length() != 500) throw new IOException("Incorrect format: Not 500 characters per line");
+		if (input.length() != 500) throw new IllegalArgumentException("Incorrect format: Not 500 characters per line");
 		
 		//Switch based on the detected record type.
 		int recordType = Integer.parseInt(input.substring(0, 1));
@@ -48,19 +48,19 @@ public class CRBDataIngestor implements IDataFormatter<CRBBase>, Iterable<CRBBas
 	}
 
 	@Override
-	public void appendFromString(List <String> input) throws IOException {
+	public void appendFromString(List <String> input) throws IllegalArgumentException {
 		for (String line: input) {
 			this.appendFromString(line);
 		}
 	}
 	
 	@Override
-	public void appendFromDataLine(CRBBase input){
+	public void appendFromDataLine(CRBBase input) throws IllegalArgumentException{
 		dataLines.add(input);
 	}
 
 	@Override
-	public void appendFromDataLine(List<CRBBase> input){
+	public void appendFromDataLine(List<CRBBase> input) throws IllegalArgumentException{
 		for (CRBBase line: input) {
 			this.appendFromDataLine(line);;
 		}
@@ -78,25 +78,5 @@ public class CRBDataIngestor implements IDataFormatter<CRBBase>, Iterable<CRBBas
 
 	@Override
 	public void clear() {dataLines.clear();}
-
-	@Override
-	public void formatForPlainText() {
-		// TODO: Implement this method
-		
-		//Sort data by Record type
-		
-		//Add Record type summary rows
-		
-		//Add Add address rows
-		
-		//Add total summary row
-		
-	}
-
-	@Override
-	public String toString() {
-		//TODO: implement toString();
-		return null;
-	}
 	
 }

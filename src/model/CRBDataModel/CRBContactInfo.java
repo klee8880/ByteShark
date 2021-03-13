@@ -41,6 +41,188 @@ public class CRBContactInfo extends CRBBase{
 		this.zipCode = input.substring(481, 491).trim();
 	}
 	
+	//Getters and Setters
+	
+	public String getContactType() {
+		return contactType;
+	}
+
+
+
+	public void setContactType(String contactType) {
+		this.contactType = contactType;
+	}
+
+
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+
+
+	public String getOptionalName() {
+		return optionalName;
+	}
+
+
+
+	public void setOptionalName(String optionalName) {
+		this.optionalName = optionalName;
+	}
+
+
+
+	public String getTitle() {
+		return title;
+	}
+
+
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+
+
+	public String getPhone() {
+		return phone;
+	}
+
+
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+
+
+	public String getFax() {
+		return fax;
+	}
+
+
+
+	public void setFax(String fax) {
+		this.fax = fax;
+	}
+
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+
+	public String getAddress1() {
+		return address1;
+	}
+
+
+
+	public void setAddress1(String address1) {
+		this.address1 = address1;
+	}
+
+
+
+	public String getAddress2() {
+		return address2;
+	}
+
+
+
+	public void setAddress2(String address2) {
+		this.address2 = address2;
+	}
+
+
+
+	public String getAddress3() {
+		return address3;
+	}
+
+
+
+	public void setAddress3(String address3) {
+		this.address3 = address3;
+	}
+
+
+
+	public String getAddress4() {
+		return address4;
+	}
+
+
+
+	public void setAddress4(String address4) {
+		this.address4 = address4;
+	}
+
+
+
+	public String getCity() {
+		return city;
+	}
+
+
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+
+
+	public String getState() {
+		return state;
+	}
+
+
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+
+
+	public String getCountryCode() {
+		return countryCode;
+	}
+
+
+
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}
+
+
+
+	public String getZipCode() {
+		return zipCode;
+	}
+
+
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+
+	//Methods
+
 	@Override
 	public String toString() {
 		StringBuilder sb =  new StringBuilder()

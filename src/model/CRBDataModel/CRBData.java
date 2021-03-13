@@ -26,7 +26,7 @@ public class CRBData extends CRBBase{
 	protected short conditionCode;				//117
 	protected String appliedJobCode;			//120-123
 	protected String appliedQualifier;			//124-125
-	protected Short whyMadeCode;				//127-128
+	protected short whyMadeCode;				//127-128
 	protected String removedJobCode; 			//131-134
 	protected String removedQualifier;			//135-136
 	protected short responsabilityCode;			//138
@@ -267,7 +267,7 @@ public class CRBData extends CRBBase{
 		this.appliedQualifier = appliedQualifier;
 	}
 
-	public Short getWhyMadeCode() {
+	public short getWhyMadeCode() {
 		return whyMadeCode;
 	}
 

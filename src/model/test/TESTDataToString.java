@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import model.CRBDataModel.CRBDataIngestor;
 
-public class TESTDataExport {
+public class TESTDataToString {
 
 	static CRBDataIngestor ingestor;
 	

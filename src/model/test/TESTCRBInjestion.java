@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import model.CRBDataModel.CRBBase;
 import model.CRBDataModel.CRBData;
 import model.CRBDataModel.CRBDataIngestor;
+import model.interfaces.IDataFormatter;
 
 /**Testing array for ingestion of data lines
  * @author klee8
@@ -19,11 +20,11 @@ import model.CRBDataModel.CRBDataIngestor;
  */
 public class TESTCRBInjestion {
 	
-	static CRBDataIngestor ingestor;
+	static IDataFormatter <CRBBase> ingestor;
 	
 	@BeforeEach
 	public void initialize() {
-		ingestor = new CRBDataIngestor();
+		ingestor = new CRBDataIngestor ();
 	}
 	
 	//Tests are run below assuming these inputs remain unchanged.
@@ -52,7 +53,7 @@ public class TESTCRBInjestion {
 			data = iterator.next();
 			Assertions.assertEquals(6, data.getRecordFormat());
 			
-		} catch (IOException e) {
+		} catch (IllegalArgumentException e) {
 			Assertions.fail("Exception Hit");
 			return;
 		}
@@ -76,7 +77,7 @@ public class TESTCRBInjestion {
 			ingestor.appendFromString(TESTDATALINE);
 			Iterator<CRBBase> iterator = ingestor.iterator();
 			data = iterator.next();
-		} catch (IOException e) {
+		} catch (IllegalArgumentException e) {
 			Assertions.fail("Exception Hit");
 			return;
 		}
@@ -85,13 +86,13 @@ public class TESTCRBInjestion {
 		
 		CRBData line = (CRBData) data;
 		
-		Assertions.assertEquals("C ", line.getLocation());
+		Assertions.assertEquals("C", line.getLocation());
 		Assertions.assertEquals(1, line.getQuantity());
 		Assertions.assertEquals(0, line.getConditionCode());
 		Assertions.assertEquals("8008", line.getAppliedJobCode());
 		Assertions.assertEquals("CLEAN TANK - LUB/CRUDE OIL", ((CRBData)line).getNarrative());
 		Assertions.assertEquals("8008", line.getRemovedJobCode());
-		Assertions.assertEquals("09", line.getWhyMadeCode());
+		Assertions.assertEquals(9, line.getWhyMadeCode());
 		Assertions.assertEquals(3, line.getResponsabilityCode());
 		Assertions.assertTrue(new BigDecimal("3337.62").equals(line.getLaborCharge()));
 		Assertions.assertTrue(new BigDecimal("0").equals(line.getMaterialCharge()));
@@ -135,7 +136,7 @@ public class TESTCRBInjestion {
 			}
 			ingestor.appendFromString(sb.toString());
 			
-		} catch (IOException ex) {
+		} catch (IllegalArgumentException ex) {
 			return;
 		}
 		

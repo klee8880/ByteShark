@@ -1,6 +1,7 @@
 package model.interfaces;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 import model.CRBDataModel.CRBBase;
@@ -14,32 +15,29 @@ public interface IDataFormatter <T> {
 
 	/** Interpret the designated string as a object of the template type and add them to the list of data
 	 * @param input - String representation of a single object
-	 * @throws IOException
+	 * @throws IllegalArgumentException
 	 */
-	public void appendFromString (String input) throws IOException;
+	public void appendFromString (String input) throws IllegalArgumentException;
 	
 	
 	/** Interprete the designed list of strings as objects of the template type and add them to the list of data
 	 * @param input - A list of String representations of the object
-	 * @throws IOException
+	 * @throws IllegalArgumentException
 	 */
-	public void appendFromString (List <String> input) throws IOException;
+	public void appendFromString (List <String> input) throws IllegalArgumentException;
 	
 	/** Intake the designated object and add it to the list of data
 	 * @param input
+	 * @throws IOException 
 	 */
-	public void appendFromDataLine (T input);
+	public void appendFromDataLine (T input) throws IllegalArgumentException;
 	
 	/** Intake the designated list of objects and add it to the list of data
 	 * @param inputs
+	 * @throws IllegalArgumentException 
 	 */
-	public void appendFromDataLine (List <T> inputs);
-	
-	/**Format the data so that it can be written to a plain text file appropriate to the datatype
-	 * 
-	 */
-	public void formatForPlainText();
-	
+	public void appendFromDataLine (List <T> inputs) throws IllegalArgumentException;
+
 	/**Output data for system use in a list format
 	 * @return
 	 */
@@ -49,6 +47,9 @@ public interface IDataFormatter <T> {
 	 * 
 	 */
 	public void clear();
+
+
+	public Iterator<T> iterator();
 
 	
 }
