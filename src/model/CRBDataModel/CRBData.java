@@ -100,6 +100,7 @@ public class CRBData extends CRBBase{
 		this.laborCharge = new BigDecimal(input.substring(148,155)).divide(divider);
 		this.materialCharge = new BigDecimal(input.substring(155,163)).divide(divider);
 		this.materialSign = input.charAt(163);
+		
 		this.machinePriceable = input.charAt(164);
 		this.wrongRepairIndicator = input.charAt(165);
 		this.narrative = input.substring(166,216).trim();
@@ -128,6 +129,7 @@ public class CRBData extends CRBBase{
 
 	public CRBData() {
 		super();
+		this.recordFormat = 1;
 	}
 
 	//Getters & Setters

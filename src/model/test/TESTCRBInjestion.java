@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import model.CRBDataModel.CRBBase;
+import model.CRBDataModel.CRBContactInfo;
 import model.CRBDataModel.CRBData;
 import model.CRBDataModel.CRBDataIngestor;
 import model.interfaces.IDataFormatter;
@@ -70,21 +71,21 @@ public class TESTCRBInjestion {
 	@Test
 	public void dataLineappend() {
 		
-		CRBBase data;
+		CRBData data;
 		
 		try {
 			
 			ingestor.appendFromString(TESTDATALINE);
 			Iterator<CRBBase> iterator = ingestor.iterator();
-			data = iterator.next();
+			data = (CRBData) iterator.next();
 		} catch (IllegalArgumentException e) {
 			Assertions.fail("Exception Hit");
 			return;
 		}
 		
-		Assertions.assertEquals(1, data.recordFormat);
+		Assertions.assertEquals(1, data.getRecordFormat());
 		
-		CRBData line = (CRBData) data;
+		CRBData line = data;
 		
 		Assertions.assertEquals("C", line.getLocation());
 		Assertions.assertEquals(1, line.getQuantity());

@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 public abstract class CRBBase implements Comparable <CRBBase> {
 
-	public int recordFormat; // position 1
+	protected int recordFormat; // position 1
 	protected String billingParty;				//2-5
 	protected String billedParty;				//6-9
 	protected LocalDate accountDate;			//10-13
