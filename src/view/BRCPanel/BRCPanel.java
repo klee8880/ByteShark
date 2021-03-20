@@ -1,14 +1,18 @@
 package view.BRCPanel;
 
 import java.awt.Dimension;
+import java.io.File;
 import java.math.BigDecimal;
 
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
+
+import view.interfaces.IBRCPanel;
 
 /**Table Used to display & manipulate basic BRC data for one repair event.
  * Installed Table Listener should be triggered whenever the user changes an element of the table.
@@ -33,7 +37,7 @@ public class BRCPanel extends JPanel implements IBRCPanel{
 	private static final long serialVersionUID = -5657231907813507325L;
 	private static String [] SCHEME= {
 			"Row",
-			"Location",
+			"Loc",
 			"Qty",
 			"Con Code",
 			"App Job Code",
@@ -50,12 +54,12 @@ public class BRCPanel extends JPanel implements IBRCPanel{
 			Integer.class,
 			String.class,
 			Integer.class,
-			Integer.class,
+			Short.class,
 			Integer.class,
 			String.class,
 			Integer.class,
-			Integer.class,
-			Integer.class,
+			Short.class,
+			Short.class,
 			BigDecimal.class,
 			BigDecimal.class,
 			BigDecimal.class};
@@ -95,6 +99,11 @@ public class BRCPanel extends JPanel implements IBRCPanel{
         this.add(scrollPane);
         this.setOpaque(true);
 	}
+	
+	@Override
+	public void updateModel(int col, int rowNum, Object data) {
+		model.setValueAt(data, rowNum, col);
+	}
 
 	/**Edit a row of data
 	 * @param newRow Object[] following the table's schema
@@ -120,6 +129,7 @@ public class BRCPanel extends JPanel implements IBRCPanel{
 	/**
 	 * @param newRow - Object[] following the table's schema
 	 */
+	@Override
 	public void addRow(Object[] newRow) {
 		
 		//Validation
@@ -139,6 +149,32 @@ public class BRCPanel extends JPanel implements IBRCPanel{
 	public JTable getTable() { return table; }
 	public DefaultTableModel getModel() { return model; }
 	
+	@Override
+	public File getFilePath(String prompt) {
+		
+		JFileChooser chooser = new JFileChooser();
+		chooser.setDialogTitle(prompt);
+		
+		int result = chooser.showOpenDialog(this);
+		
+		switch(result) {
+		
+		case JFileChooser.APPROVE_OPTION:
+			return chooser.getSelectedFile();
+			
+		case JFileChooser.CANCEL_OPTION:
+			return null;
+
+		default:
+			throw new IllegalArgumentException();
+		}
+
+	}
+
+	@Override
+	public void setValueAt(Object data, int row, int col) {
+		model.setValueAt(data, row, col);
+	}
 }
 
 

@@ -1,21 +1,21 @@
-package view;
+package view.BRCPanel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Insets;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.NoSuchElementException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import view.BRCPanel.BRCEvent;
-import view.BRCPanel.IHomeWindow;
+import view.interfaces.IEventCallback;
+import view.interfaces.IHomeWindow;
 
 /** Home window that shows after startup is complete Begins with an empty table
  * @author klee8
@@ -28,6 +28,8 @@ public class HomeWindow extends JFrame implements IHomeWindow{
     private static final String DEFAULTTITLE = "Byte Shark";
     private final Insets defaultButtonDimensions = new Insets(5, 8, 5, 8);
 
+    private final Map<BRCEvent, JButton> eventButtons = new HashMap<>();
+    
 	public HomeWindow(JPanel BRCTable) {
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -69,6 +71,7 @@ public class HomeWindow extends JFrame implements IHomeWindow{
         	nextButton.setBackground(Color.WHITE);
         	nextButton.setBorder(new LineBorder(Color.BLACK));
         	
+        	eventButtons.put(event, nextButton);
         	buttons.add(nextButton);
         }
         
@@ -78,4 +81,12 @@ public class HomeWindow extends JFrame implements IHomeWindow{
 		return backgroundPanel;
 	}
 
+	@Override
+	public void connectButtons(BRCEvent eventName, IEventCallback event) {
+		if(!eventButtons.containsKey(eventName))
+			throw new NoSuchElementException("No button exists for action " + eventName.toString());
+		
+		eventButtons.get(eventName).addActionListener((ActionEvent) -> event.run());;
+	}
+	
 }

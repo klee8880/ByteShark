@@ -3,101 +3,159 @@ package controller;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Semaphore;
 
-import javax.swing.JPanel;
+import javax.swing.table.TableModel;
 
+import controller.commands.*;
 import model.CRBDataModel.CRBDataIngestor;
-import model.CRBDataModel.CRBGeneralData;
-import model.CRBDataModel.CRBLine;
+import model.CRBDataModel.CRBBase;
+import model.CRBDataModel.CRBData;
+import model.interfaces.IDataFormatter;
+import view.BRCPanel.BRCEvent;
 import view.BRCPanel.BRCPanel;
+import view.interfaces.IBRCPanel;
+import view.interfaces.IHomeWindow;
 
 public class CommandManager {
 
+	private ChangeHistory history = new ChangeHistory();
+	private List<CRBData> brc;
+	private List<IBRCPanel> panels = new ArrayList<IBRCPanel>();
+	private Semaphore updateFlag = new Semaphore(1);
+	
+	public CommandManager(List<CRBData> generalLines) {
+		super();
+		this.brc = generalLines;
+	}
+	
+	public void addUI(IBRCPanel panel){
+		panels.add(panel);
+	}
+
+	private void undo() {
+		try {
+			updateFlag.acquire();
+			history.undo();
+			updateFlag.release();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	private void redo(){
+		try {
+			updateFlag.acquire();
+			history.redo();
+			updateFlag.release();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**Change the background data based on the changes made in the UI
+	 * @param col
+	 * @param row
+	 * @param data
+	 * @param model
+	 */
+	void changeData(int col, int row, Object data, TableModel model) {
+        
+		//Flag to check that the change is not spawned from the command manager
+		if (!updateFlag.tryAcquire()) return;
+		
+		Command cmd = new ChangeDataCommand(col, row, brc.get(row), data, panels);
+		
+		cmd.update();
+		updateFlag.release();
+		
+		history.queueCommand(cmd);
+	}
+	
 	/**Import a BRC from a new data file.
 	 * @param address
 	 * @return
 	 * @throws IOException
 	 */
-	public static ArrayList<CRBLine> importNewBRC(String address) throws IOException {
+	public static List<CRBBase> importNewBRC(String address) throws IOException {
 		
 		BufferedReader reader;
 		reader = new BufferedReader(new FileReader(address));
-		
-		ArrayList<CRBLine> brc = new ArrayList<CRBLine>();
+		IDataFormatter formatter = new CRBDataIngestor();
 		
 		String line;
 		line = reader.readLine();
 		while (line != null) {
-			brc.add(CRBDataIngestor.readDataLine(line));
+			formatter.appendFromString(line);
 			line = reader.readLine();
 		}
 		
 		reader.close();
-		return brc;
+		return formatter.outputData();
 	}
 	
 	/**Push Data Lines to the selected table.
-	 * @param dataSet
+	 * @param brc
 	 * @param brcTable
 	 */
-	public static void pushDataToTable(ArrayList<CRBLine> dataSet, BRCPanel brcTable) {
+	public static void pushDataToTable(List<CRBBase> brc, BRCPanel brcTable) {
 		
 		//Extract actual data lines
-		ArrayList<CRBGeneralData> generalLines = extractDataLines(dataSet);
+		List<CRBData> generalLines = extractDataLines(brc);
 		
 		//Check for invalid data
 		if (generalLines.size() < 1) throw new IllegalArgumentException("No Data lines detected");
 		
-		int lineCount = 0;
-		
-		for (CRBGeneralData dataLine: generalLines) {
+		for (CRBData dataLine: generalLines) {
 			
-			lineCount++;
 			
 			//Format for data table
 			Object[] tableLine = {
-					lineCount,//
+					dataLine.getLineNumber(),//
 					dataLine.getLocation(),//
 					dataLine.getQuantity(),//
 					dataLine.getConditionCode(),//
-					new Integer(dataLine.getAppliedJobCode()),//
+					Integer.parseInt(dataLine.getAppliedJobCode()),//
 					dataLine.getNarrative(),//
-					new Integer(dataLine.getRemovedJobCode()),//
-					new Integer(dataLine.getWhyMadeCode()),//
-					new Integer(dataLine.getResponsabilityCode()),//
+					Integer.parseInt(dataLine.getRemovedJobCode()),//
+					dataLine.getWhyMadeCode(),//
+					dataLine.getResponsabilityCode(),//
 					dataLine.getLaborCharge(),
 					dataLine.getMaterialCharge(),
 					dataLine.getLaborCharge().add(dataLine.getMaterialCharge())
 					};
-			
 			//Push lines to table
 			brcTable.addRow(tableLine);
 			
 		}
 		
-		
-		
 	}
 	
 	/**Extract the actual data lines from the set removing the summary and billing lines
-	 * @param dataSet
+	 * @param brc2
 	 * @return
 	 */
-	private static ArrayList<CRBGeneralData> extractDataLines(ArrayList<CRBLine> dataSet) {
+	public static List<CRBData> extractDataLines(List<CRBBase> brc) {
 		
-		ArrayList<CRBGeneralData> repairLines = new ArrayList<CRBGeneralData>();
+		List<CRBData> repairLines = new ArrayList<CRBData>();
 		
-		for (CRBLine line: dataSet) {
+		for (CRBBase line: brc) {
 			if (line.getRecordFormat() == 1) {
-				repairLines.add((CRBGeneralData)line);
+				repairLines.add((CRBData)line);
 			}
 		}
 		
 		System.out.println(repairLines.size() + " Records extracted");
 		
 		return repairLines;
+	}
+	
+	public void connectEvents(IHomeWindow window) {
+		window.connectButtons(BRCEvent.Redo, ()-> {redo();});
+		window.connectButtons(BRCEvent.Undo, ()-> {undo();});
 	}
 	
 }

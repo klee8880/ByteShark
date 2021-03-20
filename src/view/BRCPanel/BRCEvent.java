@@ -8,5 +8,11 @@ public enum BRCEvent {
 	Import,
 	Export,
 	Undo,
-	Redo
+	Redo,
+	Delete;
+
+	boolean containsKey(BRCEvent eventName) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

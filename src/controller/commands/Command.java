@@ -2,8 +2,19 @@ package controller.commands;
 
 public abstract class Command {
 
-	public abstract void undo();
+
+	/**Redo this command in both the data model and UI
+	 * 
+	 */
 	public abstract void redo();
-	public abstract void run();
 	
+	/**Undo this command in both the data model and UI
+	 * 
+	 */
+	public abstract void undo();
+	
+	/**Change the data only since change was triggered from the UI
+	 * 
+	 */
+	public abstract void update();
 }

@@ -1,33 +1,82 @@
 package model.CRBDataModel;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
-public class CRBDataIngestor {
+import model.interfaces.IDataFormatter;
 
-	public static CRBLine readDataLine (String input) throws IOException {
-		
+public class CRBDataIngestor implements IDataFormatter<CRBBase>, Iterable<CRBBase>{
+	
+	ArrayList<CRBBase> dataLines = new ArrayList<CRBBase>();
+
+	//Methods
+	@Override
+	public Iterator<CRBBase> iterator() {
+		return dataLines.iterator();
+	}
+
+	@Override
+	public void appendFromString(String input) throws IllegalArgumentException {
 		//Check argument length for incorrect data file.
-		if (input.length() != 500) throw new IOException("Incorrect format: Not 500 characters per line");
+		if (input.length() != 500) throw new IllegalArgumentException("Incorrect format: Not 500 characters per line");
 		
 		//Switch based on the detected record type.
 		int recordType = Integer.parseInt(input.substring(0, 1));
-		CRBLine crb;
+		CRBBase crb;
 		
 		switch (recordType) {
 		case 1:
-			 crb = new CRBGeneralData(input);
-			return crb;
+			 crb = new CRBData(input);
+			break;
 		case 6:
 			crb = new CRBContactInfo(input);
-			return crb;
+			break;
 		case 8:
 			crb = new CRBSummary(input);
-			return crb;
+			break;
 		case 9:
 			crb = new CRBTotal(input);
-			return crb;
+			break;
 		default:
 			throw new IllegalArgumentException("Incorrect format: Unexpected record format");
 		}
+		
+		dataLines.add(crb);
+		
 	}
+
+	@Override
+	public void appendFromString(List <String> input) throws IllegalArgumentException {
+		for (String line: input) {
+			this.appendFromString(line);
+		}
+	}
+	
+	@Override
+	public void appendFromDataLine(CRBBase input) throws IllegalArgumentException{
+		dataLines.add(input);
+	}
+
+	@Override
+	public void appendFromDataLine(List<CRBBase> input) throws IllegalArgumentException{
+		for (CRBBase line: input) {
+			this.appendFromDataLine(line);;
+		}
+	}
+	
+	@Override
+	public List<CRBBase> outputData() {
+		
+		ArrayList<CRBBase> output = new ArrayList<CRBBase> ();
+		
+		for (CRBBase c: dataLines) output.add(c);
+		
+		return output;
+	}
+
+	@Override
+	public void clear() {dataLines.clear();}
+	
 }

@@ -1,14 +1,13 @@
 package main;
 
-import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.event.TableModelListener;
 
-import controller.CommandManager;
-import controller.TableListener;
-import model.CRBDataModel.CRBLine;
-import view.HomeWindow;
-import view.BRCPanel.BRCPanel;
-import view.BRCPanel.IHomeWindow;
+import controller.*;
+import model.CRBDataModel.*;
+import view.BRCPanel.*;
+import view.interfaces.IHomeWindow;
 
 public class Main {
 
@@ -16,15 +15,22 @@ public class Main {
 	
 	public static void main (String[] args) throws Exception {
 
+		//TODO: TEST FILE INPUT
+		List<CRBBase> brc = CommandManager.importNewBRC(TESTFILE);
+		List<CRBData> generalLines = CommandManager.extractDataLines(brc);
+		
 		//Start Event Handlers
-		TableModelListener tableListener = new TableListener();
+		CommandManager manager = new CommandManager(generalLines);
+		TableModelListener tableListener = new TableListener(manager);
 		
 		//assemble the UI
 		BRCPanel brcTable = new BRCPanel(tableListener);
 		IHomeWindow homeWindow = new HomeWindow(brcTable);
 		
-		//TODO: TEST FILE INPUT
-		ArrayList<CRBLine> brc = CommandManager.importNewBRC(TESTFILE);
+		//Controller -> UI connections
+		manager.addUI(brcTable);
+		manager.connectEvents(homeWindow);
+		
 		
 		//TODO: TEST ADD DATA TO MODEL
 		CommandManager.pushDataToTable(brc, brcTable);
