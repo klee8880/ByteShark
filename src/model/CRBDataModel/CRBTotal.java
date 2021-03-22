@@ -23,11 +23,6 @@ public class CRBTotal extends CRBBase{
 		this.materialCharge = new BigDecimal(input.substring(49,65)).divide(divider);
 		
 		this.sign = input.charAt(65);
-		
-	}
-	
-	public CRBTotal() {
-		this.recordFormat = 9;
 	}
 
 	//Getters & Setters

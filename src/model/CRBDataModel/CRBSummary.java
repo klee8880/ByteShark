@@ -18,7 +18,7 @@ public class CRBSummary extends CRBBase{
 	protected BigDecimal materialCharge;		//50-65
 	protected char sign;						//66
 	protected LocalDate invoiceDate;			//67-72
-	protected String taxPayerId = "";			//73-87
+	protected String taxPayerId;				//73-87
 	protected int paymentTerms;					//88-89
 	protected LocalDate paymentDueDate;			//90-95
 	
@@ -61,7 +61,6 @@ public class CRBSummary extends CRBBase{
 	}
 
 	public CRBSummary() {
-		this.recordFormat = 8;
 	}
 	
 	//Getters & Setters
