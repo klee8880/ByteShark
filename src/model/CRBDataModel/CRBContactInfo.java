@@ -41,8 +41,12 @@ public class CRBContactInfo extends CRBBase{
 		this.zipCode = input.substring(481, 491).trim();
 	}
 	
-	//Getters and Setters
+	public CRBContactInfo() {
+		super();
+		this.recordFormat = 6;
+	}
 	
+	//Getters and Setters
 	public String getContactType() {
 		return contactType;
 	}

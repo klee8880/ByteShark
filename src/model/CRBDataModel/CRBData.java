@@ -128,6 +128,7 @@ public class CRBData extends CRBBase{
 
 	public CRBData() {
 		super();
+		this.recordFormat = 1;
 	}
 
 	//Getters & Setters

@@ -15,7 +15,7 @@ public class AddLine extends Command{
 	}
 
 	@Override
-	public void run() {
+	public void update() {
 		// TODO Auto-generated method stub
 		
 	}

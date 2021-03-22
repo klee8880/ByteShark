@@ -1,11 +1,11 @@
 package controller.commands;
 
-import model.CRBDataModel.CRBGeneralData;
+import model.CRBDataModel.CRBData;
 
 public class EditLine extends Command{
-	CRBGeneralData data;
+	CRBData data;
 	
-	public EditLine(CRBGeneralData data) {
+	public EditLine(CRBData data) {
 		this.data = data;
 	}
 
@@ -22,7 +22,7 @@ public class EditLine extends Command{
 	}
 
 	@Override
-	public void run() {
+	public void update() {
 		// TODO Auto-generated method stub
 		
 	}

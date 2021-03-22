@@ -15,7 +15,7 @@ public class DeleteLine extends Command{
 	}
 
 	@Override
-	public void run() {
+	public void update() {
 		// TODO Auto-generated method stub
 		
 	}

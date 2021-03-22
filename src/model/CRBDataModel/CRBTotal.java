@@ -27,6 +27,11 @@ public class CRBTotal extends CRBBase{
 
 	//Getters & Setters
 	
+	public CRBTotal() {
+		super();
+		this.recordFormat = 9;
+	}
+
 	public int getRecordCount() {
 		return recordCount;
 	}
