@@ -5,11 +5,9 @@ import java.io.IOException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import leek.byteShark.model.CRBDataModel.CRBDataIngestor;
 
-@SpringBootTest
 public class DataToStringTest {
 
 	static CRBDataIngestor ingestor;

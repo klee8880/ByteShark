@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>Leek</groupId>
 	<artifactId>byteShark</artifactId>
-	<version>0.1.0</version>
+	<version>0.1.1</version>
 	<name>spring-boot</name>
 	<description>Spring Boot web application for the ByteShark CRB data file reader.</description>
 
@@ -41,12 +41,31 @@
 	</dependencies>
 
 	<build>
+	
 		<plugins>
+		
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			
+			<plugin>
+		        <groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-assembly-plugin</artifactId>
+		        <configuration>
+		              		<archive>
+		                		<manifest>
+		                  			<mainClass>leek.byteShark.Main</mainClass>
+		                		</manifest>
+		              		</archive>
+		              		<descriptorRefs>
+		                	<descriptorRef>jar-with-dependencies</descriptorRef>
+		              		</descriptorRefs>
+		            	</configuration>
+			</plugin>
+			
 		</plugins>
+		
 	</build>
 
 </project>
