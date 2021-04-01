@@ -1,4 +1,4 @@
-package leek.byteShark;
+package com.example.servingwebcontent;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
