@@ -1,0 +1,65 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+    <head th:replace="/fragments/header :: common-header">    
+    </head>
+
+    <body>
+        <div th:replace="/fragments/header :: header"></div>
+        <!--        
+                <div class="col-md-6">
+                    <a class="btn btn-success" href="#" th:href="@{/flights/create}"> Add Flights </a>
+                    <a class="btn btn-primary" href="#" th:href="@{/flights/edit}" th:classappend="${flights.empty} ? 'disabled' : ''"> Edit Flights </a>
+                </div>
+        <div>
+            <h2 th:text="${arrivalsOnly} ? 'Arrival': 'Departure'" scope="col"></h2>
+        </div>
+        -->
+		<div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col"> Row </th>
+                        <th scope="col"> Loc </th>
+                        <th scope="col"> Qty </th>
+                        <th scope="col"> Con Code </th>
+                        <th scope="col"> App Job Code </th>
+                        <th scope="col"> Description </th>
+                        <th scope="col"> Rmv Job Code </th>
+                        <th scope="col"> Why Made </th>
+                        <th scope="col"> Resp </th>
+                        <th scope="col"> Labor </th>
+                        <th scope="col"> Materials </th>
+                        <th scope="col"> Total Charge </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${BRCLines.empty}">
+                        <td colspan="2"> No BRC lines in table </td>
+                    </tr>
+                    <tr scope="row" th:each="BRCLine : ${BRCLines}">
+                        <td th:text="${BRCLine.lineNumber}"></td>
+						<td th:text="${BRCLine.location}"></td>
+						<td th:text="${BRCLine.quantity}"></td>
+						<td th:text="${BRCLine.conditionCode}"></td>
+						<td th:text="${BRCLine.appliedJobCode}"></td>
+						<td th:text="${BRCLine.narrative}"></td>
+						<td th:text="${BRCLine.removedJobCode}"></td>
+						<td th:text="${BRCLine.whyMadeCode}"></td>
+						<td th:text="${BRCLine.responsabilityCode}"></td>
+						<td th:text="${BRCLine.laborCharge}"></td>
+						<td th:text="${BRCLine.materialCharge}"></td>
+						<td th:text="${BRCLine.laborCharge + BRCLine.materialCharge}"></td>
+                        
+						<!--
+                        <td th:if="${arrivalsOnly}" th:text="${#temporals.format(flight.arrivalDateTime, 'dd-MM-yyyy HH:mm')}"></td>
+                        <td th:if="${leavingOnly}" th:text="${#temporals.format(flight.departureDateTime, 'dd-MM-yyyy HH:mm')}"></td>
+						-->
+                    </tr>
+                </tbody>
+            </table>            
+        </div>   
+        <div th:replace="/fragments/footer :: footer"></div>        
+    </body>
+</html>
+
