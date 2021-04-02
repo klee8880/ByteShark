@@ -16,11 +16,15 @@ public class BRCController {
 
 	private static String ADDRESS= "./InvoiceTestData.txt";
 	
+	
+	
+	/**Display an entire brc table as a web page
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/brc")
 	public String showBRC(Model model){
 		
-		
-		//TODO: Populate the table
 		try {
 			List<CRBBase> brc = CommandManager.importNewBRC(ADDRESS);
 			List<CRBData> generalLines = CommandManager.extractDataLines(brc);
@@ -28,6 +32,18 @@ public class BRCController {
 			model.addAttribute("BRCLines",generalLines);
 			
 		} catch (IOException e) {e.printStackTrace();}
+		
+		return "BRCTable";
+	}
+	
+	
+	//TODO: Edit a brc line effectively
+	/**
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/brc/edit")
+	public String editLine(Model model){
 		
 		return "BRCTable";
 	}
