@@ -40,9 +40,9 @@
 						<td th:text="${BRCLine.removedJobCode}"></td>
 						<td th:text="${BRCLine.whyMadeCode}"></td>
 						<td th:text="${BRCLine.responsabilityCode}"></td>
-						<td th:text="${BRCLine.laborCharge}"></td>
-						<td th:text="${BRCLine.materialCharge}"></td>
-						<td th:text="${BRCLine.laborCharge + BRCLine.materialCharge}"></td>
+						<td th:text="${#numbers.formatDecimal(BRCLine.laborCharge, 0, 'COMMA', 2, 'POINT')}"></td>
+						<td th:text="${#numbers.formatDecimal(BRCLine.materialCharge, 0, 'COMMA', 2, 'POINT')}"></td>
+						<td th:text="${#numbers.formatDecimal(BRCLine.laborCharge + BRCLine.materialCharge, 0, 'COMMA', 2, 'POINT')}"></td>
                         <td><a th:href="@{'/brc/edit/' + ${BRCLine.lineNumber}}">edit</a></td>
 
                     </tr>
