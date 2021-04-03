@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import leek.byteShark.controller.CommandManager;
@@ -27,6 +28,7 @@ public class BRCController {
 	@GetMapping
 	public String showBRC(Model model){
 		
+		//TODO: Placeholder populate BRC
 		try {
 			List<CRBBase> brc = CommandManager.importNewBRC(ADDRESS);
 			List<CRBData> generalLines = CommandManager.extractDataLines(brc);
@@ -44,10 +46,12 @@ public class BRCController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/edit")
-	public String editLine(Model model){
+	@GetMapping("/edit/{lineNumber}")
+	public String editLine(@PathVariable(value="lineNumber") final String lineNumber, Model model){
 		
-		return "BRCTable";
+		
+		
+		return "BRCDetail";
 	}
 	
 }
