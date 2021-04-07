@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import leek.byteShark.TEMPBRCSingleton;
 import leek.byteShark.controller.CommandManager;
 import leek.byteShark.model.CRBDataModel.CRBBase;
 import leek.byteShark.model.CRBDataModel.CRBData;
@@ -16,10 +17,6 @@ import leek.byteShark.model.CRBDataModel.CRBData;
 @Controller
 @RequestMapping("/brc")
 public class BRCController {
-
-	private static String ADDRESS= "./InvoiceTestData.txt";
-	
-	
 	
 	/**Display an entire brc table as a web page
 	 * @param model
@@ -28,14 +25,9 @@ public class BRCController {
 	@GetMapping
 	public String showBRC(Model model){
 		
-		//TODO: Placeholder populate BRC
-		try {
-			List<CRBBase> brc = CommandManager.importNewBRC(ADDRESS);
-			List<CRBData> generalLines = CommandManager.extractDataLines(brc);
-			
-			model.addAttribute("BRCLines",generalLines);
-			
-		} catch (IOException e) {e.printStackTrace();}
+		List<CRBData> data = TEMPBRCSingleton.getBRC();
+		
+		model.addAttribute("BRCLines",data);
 		
 		return "BRCTable";
 	}
@@ -49,9 +41,16 @@ public class BRCController {
 	@GetMapping("/edit/{lineNumber}")
 	public String editLine(@PathVariable(value="lineNumber") final String lineNumber, Model model){
 		
+		List<CRBData> data = TEMPBRCSingleton.getBRC();
 		
+		for (CRBData line: data) {
+			model.addAttribute("BRCData", line);
+			break;
+		}
 		
 		return "BRCDetail";
 	}
+	
+	
 	
 }

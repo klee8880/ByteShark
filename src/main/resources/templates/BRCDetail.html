@@ -4,7 +4,41 @@
     <head><head th:replace="/fragments/header :: common-header"></head>
 
 <body>
-	It works!
+	<div th:replace="fragments/header :: header"></div>   
+	
+	        <div class="container">
+            Adjust BRC
+
+				<form action="#" th:action="@{/BRCData}" th:object="${BRCData}" method="post">
+					
+					<div class="row form-group">
+						<div class="col-lg-6">                
+							<input type="number" class="form-control" th:field="*{lineNumber}" placeholder="lineNumber" hidden="true"/>
+						</div>
+					</div>
+					<!--
+					<div class="row form-group">
+						<div class="col-lg-6">                
+							<label for="name">Detail Source</label>
+							<input type="text" class="form-control" th:field="*{detailSource}" value="${BRCData.detailSource}">
+							<span class="badge-warning" th:if="${#fields.hasErrors('detailSource')}" th:errors="*{detailSource}">Detail Source Error</span>
+						</div>
+					</div>
+
+					<div class="row form-group">
+						<div class="col-lg-6">                
+							<label for="name">Document Reference</label>
+							<input type="text" class="form-control" th:field="*{docRefNum}" value="${BRCData.docRefNum}">
+							<span class="badge-warning" th:if="${#fields.hasErrors('docRefNum')}" th:errors="*{docRefNum}">docRefNum Error</span>
+						</div>
+					</div>
+					-->
+					<button type="Save" class="btn btn-lg btn-primary">Submit</button>
+					<a class="btn btn-lg btn-warning" th:href="@{/brc}"> Cancel </a></td>
+				</form>
+			</div>  
+			
+	<div th:replace="fragments/footer :: footer"></div>    
 </body>
 
 </html>
