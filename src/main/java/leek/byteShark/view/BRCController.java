@@ -23,8 +23,9 @@ public class BRCController {
 	public String showBRC(Model model){
 		
 		List<CRBData> data = TEMPBRCSingleton.getBRC();
+		BRCWrapper wrapper = new BRCWrapper(data);
 		
-		model.addAttribute("BRCLines",data);
+		model.addAttribute("brcWrapper",wrapper);
 		
 		return "BRCTable";
 	}

@@ -8,46 +8,48 @@
         <div th:replace="/fragments/header :: header"></div>
 
 		<div>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col"> Row </th>
-                        <th scope="col"> Loc </th>
-                        <th scope="col"> Qty </th>
-                        <th scope="col"> Con Code </th>
-                        <th scope="col"> App Job Code </th>
-                        <th scope="col"> Description </th>
-                        <th scope="col"> Rmv Job Code </th>
-                        <th scope="col"> Why Made </th>
-                        <th scope="col"> Resp </th>
-                        <th scope="col"> Labor </th>
-                        <th scope="col"> Materials </th>
-                        <th scope="col"> Total Charge </th>
-                        <th scope="col"> Edit </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:if="${BRCLines.empty}">
-                        <td colspan="2"> No BRC lines in table </td>
-                    </tr>
-                    <tr scope="row" th:each="BRCLine : ${BRCLines}">
-                        <td th:text="${BRCLine.lineNumber}"></td>
-						<td th:text="${BRCLine.location}"></td>
-						<td th:text="${BRCLine.quantity}"></td>
-						<td th:text="${BRCLine.conditionCode}"></td>
-						<td th:text="${BRCLine.appliedJobCode}"></td>
-						<td th:text="${BRCLine.narrative}"></td>
-						<td th:text="${BRCLine.removedJobCode}"></td>
-						<td th:text="${BRCLine.whyMadeCode}"></td>
-						<td th:text="${BRCLine.responsabilityCode}"></td>
-						<td th:text="${#numbers.formatDecimal(BRCLine.laborCharge, 0, 'COMMA', 2, 'POINT')}"></td>
-						<td th:text="${#numbers.formatDecimal(BRCLine.materialCharge, 0, 'COMMA', 2, 'POINT')}"></td>
-						<td th:text="${#numbers.formatDecimal(BRCLine.laborCharge + BRCLine.materialCharge, 0, 'COMMA', 2, 'POINT')}"></td>
-                        <td><a th:href="@{'/brc/edit/' + ${BRCLine.lineNumber}}">edit</a></td>
+            <form action="#" th:action="@{/brc}" th:object="${brcWrapper}" method="post">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col"> Row </th>
+                            <th scope="col"> Loc </th>
+                            <th scope="col"> Qty </th>
+                            <th scope="col"> Con Code </th>
+                            <th scope="col"> App Job Code </th>
+                            <th scope="col"> Description </th>
+                            <th scope="col"> Rmv Job Code </th>
+                            <th scope="col"> Why Made </th>
+                            <th scope="col"> Resp </th>
+                            <th scope="col"> Labor </th>
+                            <th scope="col"> Materials </th>
+                            <th scope="col"> Total Charge </th>
+                            <th scope="col"> Edit </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:if="${brcWrapper.data.empty}">
+                            <td colspan="2"> No BRC lines in table </td>
+                        </tr>
+                        <tr scope="row" th:each="BRCLine : ${brcWrapper.data}">
+                            <td th:text="${BRCLine.lineNumber}"></td>
+                            <td th:text="${BRCLine.location}"></td>
+                            <td th:text="${BRCLine.quantity}"></td>
+                            <td th:text="${BRCLine.conditionCode}"></td>
+                            <td th:text="${BRCLine.appliedJobCode}"></td>
+                            <td th:text="${BRCLine.narrative}"></td>
+                            <td th:text="${BRCLine.removedJobCode}"></td>
+                            <td th:text="${BRCLine.whyMadeCode}"></td>
+                            <td th:text="${BRCLine.responsabilityCode}"></td>
+                            <td th:text="${#numbers.formatDecimal(BRCLine.laborCharge, 0, 'COMMA', 2, 'POINT')}"></td>
+                            <td th:text="${#numbers.formatDecimal(BRCLine.materialCharge, 0, 'COMMA', 2, 'POINT')}"></td>
+                            <td th:text="${#numbers.formatDecimal(BRCLine.laborCharge + BRCLine.materialCharge, 0, 'COMMA', 2, 'POINT')}"></td>
+                            <td><a th:href="@{'/brc/edit/' + ${BRCLine.lineNumber}}">edit</a></td>
 
-                    </tr>
-                </tbody>
-            </table>            
+                        </tr>
+                    </tbody>
+                </table>
+            </form>       
         </div>   
         <div th:replace="/fragments/footer :: footer"></div>        
     </body>
