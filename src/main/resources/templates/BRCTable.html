@@ -31,20 +31,23 @@
                         <tr th:if="${brcWrapper.data.empty}">
                             <td colspan="2"> No BRC lines in table </td>
                         </tr>
-                        <tr scope="row" th:each="BRCLine : ${brcWrapper.data}">
+                        <tr scope="row" th:each="BRCLine, stat : ${brcWrapper.data}">
                             <td th:text="${BRCLine.lineNumber}"></td>
-                            <td th:text="${BRCLine.location}"></td>
-                            <td th:text="${BRCLine.quantity}"></td>
-                            <td th:text="${BRCLine.conditionCode}"></td>
-                            <td th:text="${BRCLine.appliedJobCode}"></td>
-                            <td th:text="${BRCLine.narrative}"></td>
-                            <td th:text="${BRCLine.removedJobCode}"></td>
-                            <td th:text="${BRCLine.whyMadeCode}"></td>
-                            <td th:text="${BRCLine.responsabilityCode}"></td>
-                            <td th:text="${#numbers.formatDecimal(BRCLine.laborCharge, 0, 'COMMA', 2, 'POINT')}"></td>
-                            <td th:text="${#numbers.formatDecimal(BRCLine.materialCharge, 0, 'COMMA', 2, 'POINT')}"></td>
+                            <td><input type="text"      class="form-control" th:field="*{data[__${stat.index}__].location}" value="${BRCLine.location}"></td>
+                            <td><input type="number"    class="form-control" th:field="*{data[__${stat.index}__].quantity}" value="${BRCLine.quantity}"></td>
+                            <td><input type="number"    class="form-control" th:field="*{data[__${stat.index}__].conditionCode}" value="${BRCLine.conditionCode}"></td>
+                            
+                            <td><input type="number"    class="form-control" th:field="*{data[__${stat.index}__].appliedJobCode}" value="${BRCLine.appliedJobCode}"></td>
+                            <td><input type="text"      class="form-control" th:field="*{data[__${stat.index}__].narrative}" value="${BRCLine.narrative}"></td>
+                            <td><input type="number"    class="form-control" th:field="*{data[__${stat.index}__].removedJobCode}" value="${BRCLine.removedJobCode}"></td>
+                            <td><input type="number"    class="form-control" th:field="*{data[__${stat.index}__].whyMadeCode}" value="${BRCLine.whyMadeCode}"></td>
+                            <td><input type="number"    class="form-control" th:field="*{data[__${stat.index}__].responsabilityCode}" value="${BRCLine.responsabilityCode}"></td>
+                            <td><input type="number"    class="form-control" th:field="*{data[__${stat.index}__].laborCharge}" value="${BRCLine.laborCharge}"></td>
+                            <td><input type="number"    class="form-control" th:field="*{data[__${stat.index}__].materialCharge}" value="${BRCLine.materialCharge}"></td>
+
+
                             <td th:text="${#numbers.formatDecimal(BRCLine.laborCharge + BRCLine.materialCharge, 0, 'COMMA', 2, 'POINT')}"></td>
-                            <td><a th:href="@{'/brc/edit/' + ${BRCLine.lineNumber}}">edit</a></td>
+                            <td><a th:href="@{'/brc/edit/' + ${BRCLine.lineNumber}}">Edit Detail</a></td>
 
                         </tr>
                     </tbody>
