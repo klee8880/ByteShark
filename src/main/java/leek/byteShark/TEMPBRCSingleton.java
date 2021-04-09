@@ -30,4 +30,8 @@ public class TEMPBRCSingleton {
 		
 	}
 	
+	public static void setBRC(List<CRBData> newBRC) {
+		brc = newBRC;
+	}
+	
 }

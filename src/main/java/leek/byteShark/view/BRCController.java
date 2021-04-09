@@ -4,8 +4,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import leek.byteShark.TEMPBRCSingleton;
@@ -25,11 +28,27 @@ public class BRCController {
 		List<CRBData> data = TEMPBRCSingleton.getBRC();
 		BRCWrapper wrapper = new BRCWrapper(data);
 		
+		model.addAttribute("carNumber", data.get(1).getCarInitial() + " " + data.get(1).getCarNumber());
 		model.addAttribute("brcWrapper",wrapper);
 		
 		return "BRCTable";
 	}
 	
+	/**Save incoming post data from a change to the general brc table
+	 * @param wrapper
+	 * @param bindingResult
+	 * @return
+	 */
+	@PostMapping
+    public String saveBRC(@ModelAttribute("brcWrapper") BRCWrapper wrapper, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "redirect:/brc";
+        }
+
+        TEMPBRCSingleton.setBRC(wrapper.getData());
+        
+        return "redirect:/brc";
+    }
 	
 	//TODO: Edit a brc line effectively
 	/**
@@ -48,7 +67,5 @@ public class BRCController {
 		
 		return "BRCDetail";
 	}
-	
-	
 	
 }
