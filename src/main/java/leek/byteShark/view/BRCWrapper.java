@@ -11,6 +11,8 @@ import leek.byteShark.model.CRBDataModel.CRBData;
 public class BRCWrapper {
 	List<CRBData> data;
 	
+	String response = "";
+	
 	public BRCWrapper() {
 		super();
 		this.data = null;
@@ -28,6 +30,13 @@ public class BRCWrapper {
 	public void setData(List<CRBData> data) {
 		this.data = data;
 	}
-	
+
+	public String getResponse() {
+		return response;
+	}
+
+	public void setResponse(String response) {
+		this.response = response;
+	}
 	
 }

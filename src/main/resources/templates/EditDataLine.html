@@ -1,0 +1,65 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head><head th:replace="/fragments/header :: common-header"></head>
+
+<body>
+	<div th:replace="fragments/header :: header"></div>   
+
+		<form action="#" th:object="${BRCData}" th:action="@{'/brc/edit/' + ${Row}}" method="post">
+			
+			<table id="BRCData" class="table" >
+				<thead>
+					<tr>
+						<th scope="col"> Row </th>
+						<th scope="col"> Loc </th>
+						<th scope="col"> Qty </th>
+						<th scope="col"> Con Code </th>
+						<th scope="col"> App Job Code </th>
+						<th scope="col"> Description </th>
+						<th scope="col"> Rmv Job Code </th>
+						<th scope="col"> Why Made </th>
+						<th scope="col"> Resp </th>
+						<th scope="col"> Labor </th>
+						<th scope="col"> Materials </th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<td th:text="${Row}"></td>
+					<td><input type="text"      class="form-control" th:field="*{location}"             size = "2"  value="${location}"></td>
+					<td><input type="number"    class="form-control" th:field="*{quantity}"             size = "2"  value="${quantity}"></td>
+					<td><input type="number"    class="form-control" th:field="*{conditionCode}"        size = "2"  value="${conditionCode}"></td>
+					<td><input type="number"    class="form-control" th:field="*{appliedJobCode}"       size = "4"  value="${appliedJobCode}"></td>
+					<td><input type="text"      class="form-control" th:field="*{narrative}"            size = "50" value="${narrative}"></td>
+					<td><input type="number"    class="form-control" th:field="*{removedJobCode}"       size = "4"  value="${removedJobCode}"></td>
+					<td><input type="number"    class="form-control" th:field="*{whyMadeCode}"          size = "2"  value="${whyMadeCode}"></td>
+					<td><input type="number"    class="form-control" th:field="*{responsabilityCode}"   size = "2"  value="${responsabilityCode}"></td>
+					<td><input type="number"    class="form-control" th:field="*{laborCharge}"          size = "7"  value="${laborCharge}"></td>
+					<td><input type="number"    class="form-control" th:field="*{materialCharge}"       size = "7"  value="${materialCharge}"></td>
+
+				</tbody>
+			</table>
+
+			<div>
+				<input hidden="true"    type="number"    class="form-control" th:field="*{lineNumber}"   value="${lineNumber}"/>
+				<input hidden="true"    type="text"      class="form-control" th:field="*{carInitial}"   value="${carInitial}"/>
+				<input hidden="true"    type="number"    class="form-control" th:field="*{carNumber}"    value="${carNumber}"/>
+			
+				<p> Detail Source<input type="text" class="form-control" th:field="*{detailSource}" value="${detailSource}"/></p>
+				<p> Document Reference<input type="text" class="form-control" th:field="*{docRefNum}" value="${docRefNum}"/></p>
+				<p> Defect Party<input type="text" class="form-control" th:field="*{defectParty}" value="${defectParty}"/></p>
+				<p> Defect Date<input type="date" class="form-control" th:field="*{defectDate}" value="${defectDate}"/></p>
+				<p> Wrong Repair Indicator<input type="text" class="form-control" th:field="*{wrongRepairIndicator}" value="${wrongRepairIndicator}"/></p>
+
+			</div>
+
+			<button type="submit" class="btn btn-sm btn-primary">Submit</button>
+			<a class="btn btn-sm btn-warning" th:href="@{/brc}"> Cancel </a>
+
+		</form>
+			
+	<div th:replace="fragments/footer :: footer"></div>    
+</body>
+
+</html>

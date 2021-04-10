@@ -129,6 +129,8 @@ public class CRBData extends CRBBase{
 	public CRBData() {
 		super();
 		this.recordFormat = 1;
+		this.laborCharge = new BigDecimal("0");
+		this.materialCharge = new BigDecimal("0");
 	}
 
 	//Getters & Setters
