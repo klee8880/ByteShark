@@ -34,23 +34,6 @@ public class BRCController {
 		return "BRCTable";
 	}
 	
-	/**Save incoming post data from a change to the general brc table
-	 * @param wrapper
-	 * @param bindingResult
-	 * @return
-	 */
-	@PostMapping
-    public String saveBRC(@ModelAttribute("brcWrapper") BRCWrapper wrapper, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "redirect:/brc";
-        }
-
-        TEMPBRCSingleton.setBRC(wrapper.getData());
-        
-        return "redirect:/brc";
-    }
-	
-	//TODO: Edit a brc line effectively
 	/**
 	 * @param model
 	 * @return
@@ -67,5 +50,34 @@ public class BRCController {
 		
 		return "BRCDetail";
 	}
+	
+	/**Save incoming post data from a change to the general brc table
+	 * @param wrapper
+	 * @param bindingResult
+	 * @return
+	 */
+	@PostMapping
+    public String saveBRC(@ModelAttribute("brcWrapper") BRCWrapper wrapper, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+        	System.out.println("Error on Post Mapping");
+            return "redirect:/brc";
+        }
+
+        TEMPBRCSingleton.setBRC(wrapper.getData());
+        
+        return "redirect:/brc";
+    }
+	
+	@PostMapping("/AddLine")
+    public String addLine(@ModelAttribute("newCRBData") CRBData data, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+        	System.out.println("Error on Post Mapping");
+            return "redirect:/brc";
+        }
+        
+        System.out.println("Hit the add line point.");
+        
+        return "redirect:/brc";
+    }
 	
 }

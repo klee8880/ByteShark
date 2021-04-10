@@ -4,21 +4,21 @@
     <head th:replace="/fragments/header :: common-header">    
     </head>
 
-    <body leftmargin="20">
+    <body>
         <div th:replace="/fragments/header :: header"></div>
 
-        <div class="well well-lg">
-            <h4>[[${carNumber}]]</h4>
-        </div>
+        <h4>[[${carNumber}]]</h4>
 
 		<div>
-            <form action="#" th:action="@{/brc}" th:object="${brcWrapper}" method="post">
-                <table class="table">
-                    <tr>
-                        <button type="submit" class="btn btn-lg btn-primary">Submit</button>
-                    </tr>
-                </table>
-                <table class="table">
+            <form id="Add Line" action="#" th:action="@{/brc/AddLine}" method="post"></form>
+
+            <button type="submit" class="btn btn-sm btn-primary" form="BRCTable">Submit</button>
+            <button type="reset" class="btn btn-sm btn-danger" form="BRCTable">Reset</button>
+            <button type="button" class="btn btn-sm btn-primary" form="Add Line">Add Line</button>
+            <br>
+
+            <form id="BRCTable" action="#" th:action="@{/brc}" th:object="${brcWrapper}" method="post">
+                <table id="BRCData" class="table" >
                     <thead>
                         <tr>
                             <th scope="col"> Row </th>
@@ -38,7 +38,7 @@
                     </thead>
                     <tbody>
                         <tr th:if="${brcWrapper.data.empty}">
-                            <td colspan="2"> This BRC is currently Empty </td>
+                            <td colspan="7"> This BRC is currently Empty </td>
                         </tr>
                         <tr scope="row" th:each="BRCLine, stat : ${brcWrapper.data}">
                             <td th:text="${BRCLine.lineNumber}"></td>
