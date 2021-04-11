@@ -36,7 +36,6 @@ public class BRCController {
 		return "BRCTable";
 	}
 
-	//TODO: This page does not serve CSS correctly
 	@GetMapping("/brc/edit/{lineNumber}")
 	public String editLine(@PathVariable(value="lineNumber") final Integer lineNumber, Model model){
 		
@@ -56,6 +55,24 @@ public class BRCController {
 		return "EditDataLine";
 	}
 	
+	@GetMapping("/brc/edit/new")
+	public String addLine(Model model){
+		
+		List<CRBData> data = TEMPBRCSingleton.getBRC();	
+		
+		//Title
+		model.addAttribute("carNumber", data.get(0).getCarInitial() + " " + data.get(1).getCarNumber());
+		
+		model.addAttribute("Row", "new");
+		
+		CRBData line = new CRBData();
+		line.setLineNumber(data.size() + 1);
+		
+		model.addAttribute("BRCData", line);
+		
+		return "EditDataLine";
+	}
+	
 	@PostMapping("/brc/edit/{lineNumber}")
 	public String editLine(@PathVariable(value="lineNumber") final Integer lineNumber, @ModelAttribute("BRCData")CRBData dataLine, BindingResult bindingResult) {
 		
@@ -69,6 +86,16 @@ public class BRCController {
 				return "redirect:/brc";
 			}
 		}
+
+		return "redirect:/brc";
+	}
+	
+	@PostMapping("/brc/edit/new")
+	public String addLine(@ModelAttribute("BRCData")CRBData dataLine, BindingResult bindingResult) {
+		
+		List<CRBData> data = TEMPBRCSingleton.getBRC();
+
+		data.add(dataLine);
 
 		return "redirect:/brc";
 	}

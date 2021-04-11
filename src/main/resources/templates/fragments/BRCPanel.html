@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+        <title>ByteShark</title>
+    </head>
+    <body>
+        <div th:fragment="button-panel">
+            <div class="btn-group" role="toolbar">
+            <button type="submit" class="btn btn-sm btn-secondary" form="BRCTable">Save BRC</button>
+            <a href="/brc/edit/new" class="btn btn-sm btn-secondary">Add Line</a>
+            <button type="submit" class="btn btn-sm btn-secondary">Generate Files</button>
+            <button type="submit" class="btn btn-sm btn-secondary">Delete Selected</button>
+            <button type="reset" class="btn btn-sm btn-danger" form="BRCTable">Discard Changes</button>
+        </div>
+        </div>
+    </body>
+</html>
