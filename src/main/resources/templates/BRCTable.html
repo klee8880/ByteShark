@@ -1,37 +1,45 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<head th:replace="/fragments/header :: common-header">    
-</head>
+
+	<head>
+        <head th:replace="/fragments/header :: common-header"><title>ByteShark</title></head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+		<link rel="stylesheet" href="css/custom.css" type="text/css">
+		<title>ByteShark</title>
+	</head>
 
 <body>
 <div th:replace="/fragments/header :: header"></div>
 
-<h4>[[${carNumber}]]</h4>
+<div class="container-fluid">
+    <h4 class="UTCTheme">[[${carNumber}]]</h4>
+</div>
 
-<div>
+<div class="container-fluid">
+    <div class="btn-toolbar" role="toolbar">
+        <button type="submit" class="btn btn-sm btn-secondary" form="BRCTable">Submit</button>
+        <button type="reset" class="btn btn-sm btn-danger" form="BRCTable">Reset</button>
+        <a href="/brc/edit/new" class="btn btn-sm btn-secondary">Add Line</a>
+    </div>
+</div>
 
-    <button type="submit" class="btn btn-sm btn-primary" form="BRCTable">Submit</button>
-    <button type="reset" class="btn btn-sm btn-danger" form="BRCTable">Reset</button>
-    <a href="/brc/edit/new"><button type="button" class="btn btn-sm btn-primary">Add Line</button></a>
-    <br>
-
-    <table id="BRCData" class="table" >
-        <thead>
+<div class="container-fluid">
+    <table id="BRCData" class="table table-striped table-bordered table-hover" >
+        <thead class="thead-dark">
             <tr>
                 <th scope="col"> Row </th>
                 <th scope="col"> Loc </th>
                 <th scope="col"> Qty </th>
                 <th scope="col"> Con Code </th>
-                <th scope="col"> App Job Code </th>
+                <th scope="col"> Applied </th>
                 <th scope="col"> Description </th>
-                <th scope="col"> Rmv Job Code </th>
+                <th scope="col"> Removed </th>
                 <th scope="col"> Why Made </th>
-                <th scope="col"> Resp </th>
-                <th scope="col"> Labor </th>
+                <th scope="col"> Resp </th> 
                 <th scope="col"> Materials </th>
                 <th scope="col"> Total Charge </th>
                 <th scope="col"> Edit </th>
+                <th scope="col"> Detail </th>
             </tr>
         </thead>
         <tbody>
@@ -53,7 +61,7 @@
                     <td><input type="number"    class="form-control" th:field="*{data[__${stat.index}__].laborCharge}"          size = "7"  value="${BRCLine.laborCharge}"></td>
                     <td><input type="number"    class="form-control" th:field="*{data[__${stat.index}__].materialCharge}"       size = "7"  value="${BRCLine.materialCharge}"></td>
                     <td th:text="${#numbers.formatDecimal(BRCLine.laborCharge + BRCLine.materialCharge, 0, 'COMMA', 2, 'POINT')}"></td>
-                    <td><a th:href="@{'/brc/edit/' + ${BRCLine.lineNumber}}">Detail</a></td>
+                    <td><a th:href="@{'/brc/edit/' + ${BRCLine.lineNumber}}"><button type="button" class="btn btn-sm btn-primary">Detail</button></a></td>
 
                     <input hidden="true"    type="number"    class="form-control" th:field="*{data[__${stat.index}__].lineNumber}"   value="${BRCLine.lineNumber}"/>
                     <input hidden="true"    type="text"      class="form-control" th:field="*{data[__${stat.index}__].carInitial}"   value="${BRCLine.carInitial}"/>
@@ -64,8 +72,13 @@
             
         </tbody>
     </table>
+    <div class="btn-toolbar" role="toolbar">
+        <button type="submit" class="btn btn-sm btn-secondary" form="BRCTable">Submit</button>
+        <button type="reset" class="btn btn-sm btn-danger" form="BRCTable">Reset</button>
+        <a href="/brc/edit/new" class="btn btn-sm btn-secondary">Add Line</a>
+    </div>
     
-</div>   
+</div>
 <div th:replace="/fragments/footer :: footer"></div>        
 </body>
 </html>
