@@ -1,9 +1,23 @@
-.title {
-	
-}
 
 .UTCTheme {
 	background-color: black; 
 	color: #ffe957;
 	padding: 3px;
+}
+
+thead {
+	background-color: #2d3436;
+	color: whitesmoke;
+	padding; 5px;
+	
+}
+
+td {
+	vertical-align: middle;
+	text-align: center;
+}
+
+th {
+	vertical-align: middle;
+	text-align: center;
 }

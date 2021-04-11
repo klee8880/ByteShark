@@ -41,6 +41,9 @@ public class BRCController {
 		
 		List<CRBData> data = TEMPBRCSingleton.getBRC();	
 		
+		//Title
+		model.addAttribute("carNumber", data.get(0).getCarInitial() + " " + data.get(1).getCarNumber());
+		
 		for (CRBData line: data) {
 			if (line.getLineNumber() == lineNumber) {
 				model.addAttribute("Row", lineNumber);
