@@ -36,6 +36,7 @@ public class BRCController {
 		return "BRCTable";
 	}
 
+	//TODO: This page does not serve CSS correctly
 	@GetMapping("/brc/edit/{lineNumber}")
 	public String editLine(@PathVariable(value="lineNumber") final Integer lineNumber, Model model){
 		
