@@ -107,24 +107,28 @@
         let total = formatter.format(mat + labor);
         document.getElementById("total" + tableIndex).innerHTML= total;
 
-        //updateGrandTotal();
+        updateGrandTotal();
     }
 
-    //TODO: Not currently working
     function updateGrandTotal(){
-        var table = document.getElementById("BRCData");
+        let table = document.getElementById("BRCData");
         let labor = 0.00;
-        let materials = 0.00;
+        let material = 0.00;
 
-        for (var i = 1; i <= table.rows.length - 2; i++){
+        //On the table the data rows are tagged starting at 0
+        for (let i = 0; i < table.rows.length - 2; i++){
+            console.log(i);
             labor += parseFloat(document.getElementById("mat" + i).value);
-            materials += parseFloat(document.getElementById("labor" + i).value);
+            material += parseFloat(document.getElementById("labor" + i).value);
         }
 
-        document.getElementById("TotalLabor").innerHTML = labor;
-        document.getElementById("TotalMaterials").innerHTML = material;
-        document.getElementById("GrandTotal").innerHTML = labor + material;
+        document.getElementById("TotalLabor").innerHTML = formatter.format(labor);
+        document.getElementById("TotalMaterials").innerHTML = formatter.format(material);
+        document.getElementById("GrandTotal").innerHTML = formatter.format(labor + material);
     }
+
+    //Set totals on load of page
+    updateGrandTotal();
 
 </script>
 
