@@ -11,10 +11,17 @@
 <div th:replace="/fragments/header :: header"></div>
 
 <div class="container-fluid">
-    <h4 id="mySelect" class="UTCTheme">[[${carNumber}]]</h4>
-</div>
-
-<div class="container-fluid">
+    
+    <h4 id="mySelect" class="UTCTheme"> [[${carNumber}]]
+        <button type="button" class="btn btn-sm btn-secondary" data-toggle="collapse" data-target="#shopDataPanel">
+            Shopping Details
+        </button>
+    </h4>
+    <div id="shopDataPanel" class = "collapse in">
+        <div class = "card card-body">
+            Collapsable Shopping info goes here
+        </div>
+    </div>
 
     <div th:replace="/fragments/BRCPanel :: button-panel"></div>
 
@@ -38,49 +45,86 @@
         </thead>
         <tbody>
             <form id="BRCTable" action="#" th:action="@{/brc/update}" th:object="${update}" method="post">
-                <input type="text" th:field="*{response}" value="${response}>" hidden="true">
-                <tr th:if="${update.data.empty}">
-                    <td colspan="7"> This BRC is currently Empty </td>
-                </tr>
-                <tr scope="row" th:each="BRCLine, stat : ${update.data}">
-                    <td th:text="${BRCLine.lineNumber}"></td>
-                    <td><input type="text"      class="form-control form-control-sm" th:field="*{data[__${stat.index}__].location}"             size = "2"  value="${BRCLine.location}"></td>
-                    <td><input type="number"    class="form-control form-control-sm" th:field="*{data[__${stat.index}__].quantity}"             size = "2"  value="${BRCLine.quantity}"></td>
-                    <td><input type="number"    class="form-control form-control-sm" th:field="*{data[__${stat.index}__].conditionCode}"        size = "2"  value="${BRCLine.conditionCode}"></td>
-                    <td><input type="number"    class="form-control form-control-sm" th:field="*{data[__${stat.index}__].appliedJobCode}"       size = "4"  value="${BRCLine.appliedJobCode}"></td>
-                    <td><input type="text"      class="form-control form-control-sm" th:field="*{data[__${stat.index}__].narrative}"            size = "50" value="${BRCLine.narrative}"></td>
-                    <td><input type="number"    class="form-control form-control-sm" th:field="*{data[__${stat.index}__].removedJobCode}"       size = "4"  value="${BRCLine.removedJobCode}"></td>
-                    <td><input type="number"    class="form-control form-control-sm" th:field="*{data[__${stat.index}__].whyMadeCode}"          size = "2"  value="${BRCLine.whyMadeCode}"></td>
-                    <td><input type="number"    class="form-control form-control-sm" th:field="*{data[__${stat.index}__].responsabilityCode}"   size = "2"  value="${BRCLine.responsabilityCode}"></td>
-                    <td><input type="number"    th:id="'labor'+${stat.index}"  th:onchange="'myFunction('+${stat.index}+')'" step="0.01" class="form-control form-control-sm" th:field="*{data[__${stat.index}__].laborCharge}"          size = "7"  value="${BRCLine.laborCharge}"></td>
-                    <td><input type="number"    th:id="'mat'+${stat.index}"    th:onchange="'myFunction('+${stat.index}+')'" step="0.01" class="form-control form-control-sm" th:field="*{data[__${stat.index}__].materialCharge}"       size = "7"  value="${BRCLine.materialCharge}"></td>
-                    <td th:id="'total'+${stat.index}"  th:text="'$' + ${#numbers.formatDecimal(BRCLine.laborCharge + BRCLine.materialCharge, 0, 'COMMA', 2, 'POINT')}"></td>
-                    <td><a th:href="@{'/brc/edit/' + ${BRCLine.lineNumber}}"><button type="button" class="btn btn-sm btn-secondary">Detail</button></a></td>
+            <tr th:if="${update.data.empty}">
+                <td colspan="7"> This BRC is currently Empty </td>
+            </tr>
+            <tr scope="row" th:each="BRCLine, stat : ${update.data}">
+                <td th:text="${BRCLine.lineNumber}"></td>
+                <td><input type="text"      class="form-control form-control-sm" th:field="*{data[__${stat.index}__].location}"             size = "2"  value="${BRCLine.location}"></td>
+                <td><input type="number"    class="form-control form-control-sm" th:field="*{data[__${stat.index}__].quantity}"             size = "2"  value="${BRCLine.quantity}"></td>
+                <td><input type="number"    class="form-control form-control-sm" th:field="*{data[__${stat.index}__].conditionCode}"        size = "2"  value="${BRCLine.conditionCode}"></td>
+                <td><input type="number"    class="form-control form-control-sm" th:field="*{data[__${stat.index}__].appliedJobCode}"       size = "4"  value="${BRCLine.appliedJobCode}"></td>
+                <td><input type="text"      class="form-control form-control-sm" th:field="*{data[__${stat.index}__].narrative}"            size = "50" value="${BRCLine.narrative}"></td>
+                <td><input type="number"    class="form-control form-control-sm" th:field="*{data[__${stat.index}__].removedJobCode}"       size = "4"  value="${BRCLine.removedJobCode}"></td>
+                <td><input type="number"    class="form-control form-control-sm" th:field="*{data[__${stat.index}__].whyMadeCode}"          size = "2"  value="${BRCLine.whyMadeCode}"></td>
+                <td><input type="number"    class="form-control form-control-sm" th:field="*{data[__${stat.index}__].responsabilityCode}"   size = "2"  value="${BRCLine.responsabilityCode}"></td>
+                <td><input type="number"    th:id="'labor'+${stat.index}"  th:onchange="'updateSubTotal('+${stat.index}+')'" step="0.01" class="form-control form-control-sm" th:field="*{data[__${stat.index}__].laborCharge}"          size = "7"  value="${BRCLine.laborCharge}"></td>
+                <td><input type="number"    th:id="'mat'+${stat.index}"    th:onchange="'updateSubTotal('+${stat.index}+')'" step="0.01" class="form-control form-control-sm" th:field="*{data[__${stat.index}__].materialCharge}"       size = "7"  value="${BRCLine.materialCharge}"></td>
+                <td th:id="'total'+${stat.index}"  th:text="'$' + ${#numbers.formatDecimal(BRCLine.laborCharge + BRCLine.materialCharge, 0, 'COMMA', 2, 'POINT')}"></td>
+                <td><a th:href="@{'/brc/edit/' + ${BRCLine.lineNumber}}"><button type="button" class="btn btn-sm btn-secondary">Detail</button></a></td>
 
-                    <input hidden="true"    type="number"    class="form-control" th:field="*{data[__${stat.index}__].lineNumber}"   value="${BRCLine.lineNumber}"/>
-                    <input hidden="true"    type="text"      class="form-control" th:field="*{data[__${stat.index}__].carInitial}"   value="${BRCLine.carInitial}"/>
-                    <input hidden="true"    type="number"    class="form-control" th:field="*{data[__${stat.index}__].carNumber}"    value="${BRCLine.carNumber}"/>
-
-                </tr>
-            </form>
-            
+                <input hidden="true"    type="number"    class="form-control" th:field="*{data[__${stat.index}__].lineNumber}"   value="${BRCLine.lineNumber}"/>
+                <input hidden="true"    type="text"      class="form-control" th:field="*{data[__${stat.index}__].carInitial}"   value="${BRCLine.carInitial}"/>
+                <input hidden="true"    type="number"    class="form-control" th:field="*{data[__${stat.index}__].carNumber}"    value="${BRCLine.carNumber}"/>
+            </tr></form>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td id="TotalMaterials" th:text="'$' + ${#numbers.formatDecimal(0, 0, 'COMMA', 2, 'POINT')}"></td>
+                <td id="TotalLabor"     th:text="'$' + ${#numbers.formatDecimal(0, 0, 'COMMA', 2, 'POINT')}"></td>
+                <td id="GrandTotal"     th:text="'$' + ${#numbers.formatDecimal(0, 0, 'COMMA', 2, 'POINT')}"></td>
+                <td></td>
+            </tr>
         </tbody>
+
     </table>
 
     <div th:replace="/fragments/BRCPanel :: button-panel"></div>
-    
+
 </div>
-<div th:replace="/fragments/footer :: footer"></div>        
+
+<div th:replace="/fragments/footer :: footer"></div>
+
 </body>
 
 <script>
-    
-function myFunction(tableIndex) {
-    let mat = parseFloat(document.getElementById("mat" + tableIndex).value);
-    let labor = parseFloat(document.getElementById("labor" + tableIndex).value);
-    let total = (mat + labor)
-    document.getElementById("total" + tableIndex).innerHTML= "$" + total;
-}
+    var formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+    });
+
+    function updateSubTotal(tableIndex) {
+
+        let mat = parseFloat(document.getElementById("mat" + tableIndex).value);
+        let labor = parseFloat(document.getElementById("labor" + tableIndex).value);
+        let total = formatter.format(mat + labor);
+        document.getElementById("total" + tableIndex).innerHTML= total;
+
+        //updateGrandTotal();
+    }
+
+    //TODO: Not currently working
+    function updateGrandTotal(){
+        var table = document.getElementById("BRCData");
+        let labor = 0.00;
+        let materials = 0.00;
+
+        for (var i = 1; i <= table.rows.length - 2; i++){
+            labor += parseFloat(document.getElementById("mat" + i).value);
+            materials += parseFloat(document.getElementById("labor" + i).value);
+        }
+
+        document.getElementById("TotalLabor").innerHTML = labor;
+        document.getElementById("TotalMaterials").innerHTML = material;
+        document.getElementById("GrandTotal").innerHTML = labor + material;
+    }
 
 </script>
 

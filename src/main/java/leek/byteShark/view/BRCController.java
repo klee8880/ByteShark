@@ -30,7 +30,6 @@ public class BRCController {
 		
 		//Edit line format
 		BRCWrapper update = new BRCWrapper(data);
-		update.response = "edit";
 		model.addAttribute("update",update);
 		
 		return "BRCTable";
@@ -102,8 +101,6 @@ public class BRCController {
 	
 	@PostMapping("/brc/update")
     public String saveBRC(@ModelAttribute("update") BRCWrapper wrapper, BindingResult bindingResult) {
-        
-        System.out.println(wrapper.getResponse());
 
         TEMPBRCSingleton.setBRC(wrapper.getData());
 
