@@ -2,7 +2,11 @@ package leek.byteShark.view;
 
 import java.time.LocalDate;
 
-public class HeaderWrapper {
+import lombok.Data;
+
+@Data
+
+public class ShoppingWrapper {
 
 	private String billedParty;
 	private LocalDate accountDate;
@@ -22,7 +26,6 @@ public class HeaderWrapper {
 	private LocalDate repairDate;
 	private int SPLC;
 	
-	
 	private String defectParty;
 	private LocalDate defectDate;
 	private char resubmittedInvoice;
@@ -30,5 +33,4 @@ public class HeaderWrapper {
 	private LocalDate originalAccountDate;
 	private LocalDate arrivalDate;
 	
-	//Getters & Setters
 }
