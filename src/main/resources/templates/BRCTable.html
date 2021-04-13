@@ -13,13 +13,88 @@
 <div class="container-fluid">
     
     <h4 id="mySelect" class="UTCTheme"> [[${carNumber}]]
-        <button type="button" class="btn btn-sm btn-secondary" data-toggle="collapse" data-target="#shopDataPanel">
+        <button type="button" class="btn btn-sm btn-secondary" data-toggle="collapse" data-target="#globalDataPanel">
             Shopping Details
         </button>
     </h4>
-    <div id="shopDataPanel" class = "collapse in">
+    <div id="globalDataPanel" class = "collapse in">
         <div class = "card card-body">
-            Collapsable Shopping info goes here
+            <h5>Equipment</h5>
+            <div class="row container-fluid">
+                <div class="column-sm">
+                    <p>Car Initial</p>
+                    <input type="text" class="form-control form-control-sm" readonly/>
+                </div>
+                <div class="column-sm readonly">
+                    <p>Car Number</p>
+                    <input type="text" class="form-control form-control-sm" readonly/>
+                </div>
+                <div class="column-sm">
+                    <p>Car Type</p>
+                    <input type="text" class="form-control form-control-sm"/>
+                </div>
+            </div>
+            <br>
+            <h5>Billing</h5>
+            <div class="row container-fluid">
+                <div class="column-sm">
+                    <p>Invoice Number</p>
+                    <input type="text" class="form-control form-control-sm"/>
+                </div>
+                <div class="column-sm">
+                    <p>Invoice Date</p>
+                    <input type="date" class="form-control form-control-sm"/>
+                </div>
+                <div class="column-sm">
+                    <p>Detail Source</p>
+                    <input type="text" class="form-control form-control-sm"/>
+                </div>
+                <div class="column-sm">
+                    <p>Billed Party</p>
+                    <input type="text" class="form-control form-control-sm"/>
+                </div>
+            </div>
+            <br>
+            <h5>Shopping</h5>
+            <div class="row container-fluid">
+                <div class="column-sm">
+                    <p>Account Date</p>
+                    <input type="date" class="form-control form-control-sm"/>
+                </div>
+                <div class="column-sm">
+                    <p>Arrival Date</p>
+                    <input type="date" class="form-control form-control-sm"/>
+                </div>
+                <div class="column-sm">
+                    <p>Repair Date</p>
+                    <input type="date" class="form-control form-control-sm"/>
+                </div>
+                <div class="column-sm">
+                    <p>SPLC</p>
+                    <input type="number" class="form-control form-control-sm"/>
+                </div>
+                <div class="column-sm">
+                    <p>Load Indicator</p>
+                    <input type="text" class="form-control form-control-sm"/>
+                </div>
+                <div class="column-sm">
+                    <p>Price Master</p>
+                    <input type="text" class="form-control form-control-sm"/>
+                </div>
+            </div>
+
+            <br>
+            <h5>Defect</h5>
+            <div class="row container-fluid">
+                <div class="column-sm">
+                    <p>Defect Party</p>
+                    <input type="text" class="form-control form-control-sm"/>
+                </div>
+                <div class="column-sm">
+                    <p>Defect Date</p>
+                    <input type="date" class="form-control form-control-sm"/>
+                </div>
+            </div>
         </div>
     </div>
 
