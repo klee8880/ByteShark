@@ -224,9 +224,8 @@ public class CRBDataExporter extends CRBDataIngestor implements IDataExporter <C
 			if (!subTotals.containsKey(detailSource)) {
 				subTotals.put(detailSource, new TrackedTotal());
 			}
-		
-			//TODO: DEBUG
-			/*
+
+			/*TODO: DEBUG
 			StringBuilder sb = new StringBuilder("Line: ");
 			sb.append(dataLine.lineNumber);
 			sb.append(" Material: ");

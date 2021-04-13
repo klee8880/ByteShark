@@ -38,7 +38,7 @@ public class CRBData extends CRBBase{
 	protected char machinePriceable;			//165
 	protected char wrongRepairIndicator;		//166
 	
-	protected String narrative;	
+	protected String narrative;					//167-216
 	
 	protected BigDecimal laborRate;				//217-221
 	protected int expandedSPLC;					//222-230
@@ -49,7 +49,7 @@ public class CRBData extends CRBBase{
 	protected int railLinkOutboundDate;			//300-305
 	protected char resubmittedInvoice;			//306
 	protected String originalInvoiceNumber;		//307-322		*Required if resubmittedInvoice
-	protected LocalDate originalAccountDate;			//323-326
+	protected LocalDate originalAccountDate;	//323-326
 	protected String AARComponentID;			//327-340
 	protected String freeUseArea;				//401-500
 	
