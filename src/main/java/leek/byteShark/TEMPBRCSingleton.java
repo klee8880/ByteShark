@@ -11,18 +11,16 @@ import leek.byteShark.model.CRBDataModel.CRBData;
  * @author klee8
  *
  */
-public class TEMPBRCSingleton {
+public class TEMPBRCSingleton{
 
 	private static List<CRBData> brc = null;
-	private static String ADDRESS= "./InvoiceTestData.txt";
-	public static List<CRBData> getBRC(){
+	private static String ADDRESS= "InvoiceTestData.txt";
+	public static List<CRBData> getBRC() throws IOException{
 		
 		//Create table if not already created
 		if (brc == null) {
-			try {
-				List<CRBBase> extract = CommandManager.importNewBRC(ADDRESS);
-				brc = CommandManager.extractDataLines(extract);
-			} catch (IOException e) {e.printStackTrace();}
+			List<CRBBase> extract = CommandManager.importNewBRC(ADDRESS);
+			brc = CommandManager.extractDataLines(extract);
 		}
 		
 		return brc;

@@ -11,6 +11,8 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 import leek.byteShark.controller.CommandManager;
 import leek.byteShark.model.CRBDataModel.CRBBase;
@@ -100,7 +102,8 @@ public class ReadWriteTest {
 		exp.formatForPlainText();
 		
 		//Test exported lines against original data file
-		BufferedReader reader = new BufferedReader(new FileReader(TESTFILE));
+		BufferedReader reader;
+		reader = new BufferedReader(new FileReader(TESTFILE));
 		Iterator <CRBBase> exportedLines = exp.iterator();
 		
 		String fromExporter, fromFile;

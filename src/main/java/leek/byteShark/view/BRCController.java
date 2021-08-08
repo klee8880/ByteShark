@@ -1,5 +1,6 @@
 package leek.byteShark.view;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -19,9 +20,10 @@ public class BRCController {
 	/**Display an entire brc table as a web page
 	 * @param model
 	 * @return
+	 * @throws IOException 
 	 */
 	@GetMapping("/brc")
-	public String showBRC(Model model){
+	public String showBRC(Model model) throws IOException{
 		
 		List<CRBData> data = TEMPBRCSingleton.getBRC();
 		
@@ -36,7 +38,7 @@ public class BRCController {
 	}
 
 	@GetMapping("/brc/edit/{lineNumber}")
-	public String editLine(@PathVariable(value="lineNumber") final Integer lineNumber, Model model){
+	public String editLine(@PathVariable(value="lineNumber") final Integer lineNumber, Model model) throws IOException{
 		
 		List<CRBData> data = TEMPBRCSingleton.getBRC();	
 		
@@ -55,7 +57,7 @@ public class BRCController {
 	}
 	
 	@GetMapping("/brc/edit/new")
-	public String addLine(Model model){
+	public String addLine(Model model) throws IOException{
 		
 		List<CRBData> data = TEMPBRCSingleton.getBRC();	
 		
@@ -73,7 +75,7 @@ public class BRCController {
 	}
 	
 	@PostMapping("/brc/edit/{lineNumber}")
-	public String editLine(@PathVariable(value="lineNumber") final Integer lineNumber, @ModelAttribute("BRCData")CRBData dataLine, BindingResult bindingResult) {
+	public String editLine(@PathVariable(value="lineNumber") final Integer lineNumber, @ModelAttribute("BRCData")CRBData dataLine, BindingResult bindingResult) throws IOException {
 		
 		List<CRBData> data = TEMPBRCSingleton.getBRC();
 
@@ -90,7 +92,7 @@ public class BRCController {
 	}
 	
 	@PostMapping("/brc/edit/new")
-	public String addLine(@ModelAttribute("BRCData")CRBData dataLine, BindingResult bindingResult) {
+	public String addLine(@ModelAttribute("BRCData")CRBData dataLine, BindingResult bindingResult) throws IOException {
 		
 		List<CRBData> data = TEMPBRCSingleton.getBRC();
 

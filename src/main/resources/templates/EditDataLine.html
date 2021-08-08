@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 	<head>
-        <head th:replace="/fragments/header :: common-header"><title>ByteShark</title></head>
+        <head th:replace="fragments/header :: common-header"><title>ByteShark</title></head>
         <link rel="stylesheet" th:href="@{/css/custom.css}" type="text/css">
 	</head>
 
 <body>
     
-<div th:replace="/fragments/header :: header"></div>
+<div th:replace="fragments/header :: header"></div>
 
 <div class="container-fluid">
     <h4 class="UTCTheme">[[${carNumber}]]</h4>
