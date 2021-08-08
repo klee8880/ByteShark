@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>Leek</groupId>
 	<artifactId>byteShark</artifactId>
-	<version>0.1.5</version>
+	<version>0.1.7</version>
 	<name>spring-boot</name>
 	<description>Spring Boot web application for the ByteShark CRB data file reader.</description>
 
