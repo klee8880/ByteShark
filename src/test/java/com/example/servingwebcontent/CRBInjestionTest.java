@@ -34,6 +34,9 @@ public class CRBInjestionTest {
 	
 	@Test
 	public void basicLineData() {
+		
+		String cde = "abc";
+		
 		CRBBase data;
 		try {
 			

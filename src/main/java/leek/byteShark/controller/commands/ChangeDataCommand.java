@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import leek.byteShark.model.CRBDataModel.CRBData;
-import leek.byteShark.view.interfaces.IBRCPanel;
 
 public class ChangeDataCommand extends Command{
 
@@ -13,16 +12,14 @@ public class ChangeDataCommand extends Command{
 	CRBData data;
 	Object oldValue;
 	Object newValue;
-	List<IBRCPanel> panels;
 
 	
-	public ChangeDataCommand(int col, int row, CRBData data, Object newValue, List<IBRCPanel> panels) {
+	public ChangeDataCommand(int col, int row, CRBData data, Object newValue) {
 		super();
 		this.col = col;
 		this.row = row;
 		this.data = data;
 		this.newValue = newValue;
-		this.panels = panels;
 		
 		//Determine the old value based on the column that was changed.
 		switch(col) {
@@ -68,14 +65,12 @@ public class ChangeDataCommand extends Command{
 	@Override
 	public void redo() {
 		setTable(col, newValue);
-		setModel(row, col, newValue);
 		totalRowUpdate(row,col);
 	}
 
 	@Override
 	public void undo() {
 		setTable(col, oldValue);
-		setModel(row, col, oldValue);
 		totalRowUpdate(row,col);
 	}
 
@@ -85,16 +80,9 @@ public class ChangeDataCommand extends Command{
 		totalRowUpdate(row,col);
 	}
 	
-	private void setModel(int row, int col, Object value) {
-		for (IBRCPanel panel: panels) {
-			panel.updateModel(col, row, value);
-		}
-	}
-	
 	private void totalRowUpdate(int row, int col) {
 		if (col == 9 || col == 10) {
 			BigDecimal total = data.getMaterialCharge().add(data.getLaborCharge());
-			setModel(row, 11, total);
 		}
 	}
 	

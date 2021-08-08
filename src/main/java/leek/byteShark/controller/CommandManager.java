@@ -14,25 +14,16 @@ import leek.byteShark.model.CRBDataModel.CRBBase;
 import leek.byteShark.model.CRBDataModel.CRBData;
 import leek.byteShark.model.CRBDataModel.CRBDataIngestor;
 import leek.byteShark.model.interfaces.IDataFormatter;
-import leek.byteShark.view.BRCPanel.BRCEvent;
-import leek.byteShark.view.BRCPanel.BRCPanel;
-import leek.byteShark.view.interfaces.IBRCPanel;
-import leek.byteShark.view.interfaces.IHomeWindow;
 
 public class CommandManager {
 
 	private ChangeHistory history = new ChangeHistory();
 	private List<CRBData> brc;
-	private List<IBRCPanel> panels = new ArrayList<IBRCPanel>();
 	private Semaphore updateFlag = new Semaphore(1);
 	
 	public CommandManager(List<CRBData> generalLines) {
 		super();
 		this.brc = generalLines;
-	}
-	
-	public void addUI(IBRCPanel panel){
-		panels.add(panel);
 	}
 
 	private void undo() {
@@ -67,7 +58,7 @@ public class CommandManager {
 		//Flag to check that the change is not spawned from the command manager
 		if (!updateFlag.tryAcquire()) return;
 		
-		Command cmd = new ChangeDataCommand(col, row, brc.get(row), data, panels);
+		Command cmd = new ChangeDataCommand(col, row, brc.get(row), data);
 		
 		cmd.update();
 		updateFlag.release();
@@ -101,7 +92,7 @@ public class CommandManager {
 	 * @param brc
 	 * @param brcTable
 	 */
-	public static void pushDataToTable(List<CRBBase> brc, BRCPanel brcTable) {
+	public static void pushDataToTable(List<CRBBase> brc) {
 		
 		//Extract actual data lines
 		List<CRBData> generalLines = extractDataLines(brc);
@@ -127,8 +118,6 @@ public class CommandManager {
 					dataLine.getMaterialCharge(),
 					dataLine.getLaborCharge().add(dataLine.getMaterialCharge())
 					};
-			//Push lines to table
-			brcTable.addRow(tableLine);
 			
 		}
 		
@@ -152,12 +141,7 @@ public class CommandManager {
 		
 		return repairLines;
 	}
-	
-	public void connectEvents(IHomeWindow window) {
-		window.connectButtons(BRCEvent.Redo, ()-> {redo();});
-		window.connectButtons(BRCEvent.Undo, ()-> {undo();});
-	}
-	
+
 }
 
 
