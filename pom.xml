@@ -13,7 +13,8 @@
 	<version>0.1.7</version>
 	<name>spring-boot</name>
 	<description>Spring Boot web application for the ByteShark CRB data file reader.</description>
-
+	<packaging>jar</packaging>
+	
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>

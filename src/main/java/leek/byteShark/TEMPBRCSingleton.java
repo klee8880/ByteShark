@@ -15,7 +15,6 @@ public class TEMPBRCSingleton {
 
 	private static List<CRBData> brc = null;
 	private static String ADDRESS= "./InvoiceTestData.txt";
-	
 	public static List<CRBData> getBRC(){
 		
 		//Create table if not already created

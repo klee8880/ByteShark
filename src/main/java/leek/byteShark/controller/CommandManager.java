@@ -1,7 +1,9 @@
 package leek.byteShark.controller;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +74,6 @@ public class CommandManager {
 	 * @throws IOException
 	 */
 	public static List<CRBBase> importNewBRC(String address) throws IOException {
-		
 		BufferedReader reader;
 		reader = new BufferedReader(new FileReader(address));
 		IDataFormatter<CRBBase> formatter = new CRBDataIngestor ();
