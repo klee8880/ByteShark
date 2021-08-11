@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>Leek</groupId>
 	<artifactId>byteShark</artifactId>
-	<version>0.1.7</version>
+	<version>0.1.8</version>
 	<name>spring-boot</name>
 	<description>Spring Boot web application for the ByteShark CRB data file reader.</description>
 	<packaging>jar</packaging>
@@ -20,12 +20,10 @@
 	</properties>
 
 	<dependencies>
-	
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-	
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -49,6 +47,23 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- end::tests[] -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>javax.persistence-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -58,7 +73,7 @@
 			</resource>
 			<resource>
 				<directory>./</directory>
-				<targetPath>./</targetPath>
+				<targetPath>/target</targetPath>
 		      	<includes>
 		        	<include>InvoiceTestData.txt</include>
 		      	</includes>
