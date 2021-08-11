@@ -72,8 +72,8 @@
 				<directory>src/main/resources</directory>
 			</resource>
 			<resource>
-				<directory>./</directory>
-				<targetPath>/target</targetPath>
+				<directory>./target</directory>
+				<targetPath>./</targetPath>
 		      	<includes>
 		        	<include>InvoiceTestData.txt</include>
 		      	</includes>
