@@ -9,8 +9,8 @@ services:
     - MYSQL_ALLOW_EMPTY_PASSWORD=true
     - MYSQL_USER=byteShark
     - MYSQL_PASSWORD=byteShark
-    - MYSQL_DATABASE=byteShark-Data
+    - MYSQL_DATABASE=byteShark
     command: "--innodb_use_native_aio=0"
     volumes:
     - "./conf.d:/etc/mysql/conf.d:ro"
-    - "./data.d:/var/lib/mysql"
+    - ./mysqldata:/var/lib/mysql:rw,delegated

@@ -8,15 +8,22 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "SHOPPING")
 public class Shopping {
 	
+	protected Shopping() {}
+	
+	public Shopping(String carInitial, int carNumber) {
+		super();
+		this.carInitial = carInitial;
+		this.carNumber = carNumber;
+	}
+
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer id;
 	private String carInitial;
-	private int number;
-	private char carType;
+	private Integer carNumber;
+	private Character carType;
 	
 	private String invoiceNumber = "";
 	private LocalDate invoiceDate;
@@ -27,8 +34,8 @@ public class Shopping {
 	private LocalDate arrivalDate;
 	private LocalDate repairDate;
 	
-	private int SPLC;
-	private char loadindicator;
+	private Integer SPLC;
+	private Character loadIndicator = 'E';
 	
 	private String defectCard;
 	private LocalDate defectDate;
