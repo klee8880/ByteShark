@@ -1,0 +1,16 @@
+version: '3.1'
+services:
+  mysql:
+    image: mysql:5.7
+    ports:
+    - "3306:3306/tcp"
+    environment:
+    - MYSQL_ROOT_PASSWORD=
+    - MYSQL_ALLOW_EMPTY_PASSWORD=true
+    - MYSQL_USER=byteShark
+    - MYSQL_PASSWORD=byteShark
+    - MYSQL_DATABASE=byteShark
+    command: "--innodb_use_native_aio=0"
+    volumes:
+    - "./conf.d:/etc/mysql/conf.d:ro"
+    - ./mysqldata:/var/lib/mysql:rw,delegated
