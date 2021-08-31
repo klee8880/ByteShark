@@ -31,4 +31,5 @@ public class RepairLine {
 	private BigDecimal laborCharge;
 	private BigDecimal materialCharge;
 	private Character materialSign;
+
 }
