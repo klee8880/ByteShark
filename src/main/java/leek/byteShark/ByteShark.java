@@ -17,7 +17,7 @@ public class ByteShark {
         SpringApplication.run(ByteShark.class, args);
     }
     
-    @Bean
+    //@Bean
     public CommandLineRunner databaseTest (ShoppingRepository shoppings, RepairLineRepository datalines) {
 		return (args) -> {
 			

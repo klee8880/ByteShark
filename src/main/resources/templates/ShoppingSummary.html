@@ -8,7 +8,25 @@
 
 <body>
     
-<div th:replace="fragments/header :: header"></div>
+	<div th:replace="fragments/header :: header"></div>
+	
+	<table id="BRCData" th:object="${update}" class="table table-sm table-striped table-bordered table-hover" >
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col"> Mark </th>
+                <th scope="col"> Number </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:if="${update.data.empty}">
+                <td colspan="7"> NO DATA AVAIABLE </td>
+            </tr>
+            <tr scope="row" th:each="Shopping, stat : ${update.data}">
+                <td><input type="text"      class="form-control form-control-sm" th:field="*{data[__${stat.index}__].carInitial}"            size = "2"  value="${Shopping.carInitial}"></td>
+                <td><input type="number"    class="form-control form-control-sm" th:field="*{data[__${stat.index}__].carNumber}"             size = "2"  value="${Shopping.carNumber}"></td>
+            </tr>
+        </tbody>
+    </table>
 
 </body>
 </html>
